@@ -2,8 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+/* Efecto Liquid Glass / Vidrio Esmerilado */
+.glass-panel {
+  @apply bg-white/40 backdrop-blur-md border border-white/50 shadow-xl;
+  /* Esto crea: Fondo semitransparente + Borroso detrás + Borde sutil */
+}
+
+/* Para tarjetas interactivas (hover) */
+.glass-card {
+  @apply glass-panel transition-all duration-500 hover:bg-white/60 hover:-translate-y-2 hover:shadow-2xl rounded-2xl;
+}
+
+/* El fondo orgánico general */
+body {
+  @apply bg-brand-cream text-brand-dark;
 }
