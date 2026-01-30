@@ -8,41 +8,40 @@ const Services = () => {
     {
       title: "Terapia Individual Adultos",
       desc: "Espacio seguro para abordar ansiedad, depresión, duelo o crecimiento personal.",
-      icon: <User className="w-8 h-8 text-brand-terra" />, // Terracota
-      bgColor: "bg-brand-terra/10" // Terracota muy suave (10% opacidad)
+      icon: <User className="w-8 h-8 text-brand-text" />, 
+      // El bgColor ahora es para el círculo del icono, más claro para contrastar
+      bgColor: "bg-brand-bg/30" 
     },
     {
       title: "Niños y Adolescentes",
       desc: "Atención especializada a partir de los 10 años. Manejo emocional y conductual.",
-      icon: <Heart className="w-8 h-8 text-brand-sage" />, // Salvia
-      bgColor: "bg-brand-sage/20" // Salvia suave
+      icon: <Heart className="w-8 h-8 text-brand-text" />,
+      bgColor: "bg-brand-bg/30"
     },
     {
       title: "Enfoque Cognitivo Conductual",
       desc: "Trabajamos en identificar y cambiar patrones de pensamiento que afectan tu bienestar.",
-      icon: <Brain className="w-8 h-8 text-brand-dark" />, // Carboncillo
-      bgColor: "bg-stone-200/50" // Gris suave
+      icon: <Brain className="w-8 h-8 text-brand-text" />,
+      bgColor: "bg-brand-bg/30"
     },
     {
       title: "Terapias Contextuales",
       desc: "DBT, ACT, AC y FAP. Enfocadas en la aceptación, mindfulness y valores de vida.",
-      icon: <BookOpen className="w-8 h-8 text-brand-terra" />, // Terracota de nuevo para balancear
-      bgColor: "bg-brand-terra/10"
+      icon: <BookOpen className="w-8 h-8 text-brand-text" />,
+      bgColor: "bg-brand-bg/30"
     }
   ];
 
   return (
-    // Fondo general "Crema" definido en el componente padre o body, aquí aseguramos limpieza
     <div className="relative z-10">
       <Section id="services">
         <Reveal>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-4">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text mb-4">
               Mis Servicios
             </h2>
-            {/* Línea decorativa en color Salvia */}
-            <div className="h-1 w-20 bg-brand-sage mx-auto rounded-full mb-6"></div>
-            <p className="max-w-2xl mx-auto text-stone-600 font-light text-lg">
+            <div className="h-1 w-20 bg-brand-accent mx-auto rounded-full mb-6"></div>
+            <p className="max-w-2xl mx-auto text-brand-text/80 font-sans text-lg">
               Un enfoque profesional, cálido y humano, adaptado a tus necesidades específicas.
             </p>
           </div>
@@ -51,25 +50,31 @@ const Services = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((s, i) => (
             <Reveal key={i} delay={i * 100}>
-              {/* AQUÍ APLICAMOS LA TARJETA DE VIDRIO (glass-card) */}
-              <div className="glass-card p-8 h-full group border border-white/40 relative overflow-hidden">
+              
+              {/* TARJETA ESTILO "GREEN SAGE" (Igual al Contacto) */}
+              <div className="bg-brand-sage rounded-[2rem] p-8 h-full group relative overflow-hidden flex flex-col items-center text-center shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-white/20">
                 
-                {/* Mancha de color decorativa sutil detrás del icono */}
-                <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full ${s.bgColor} blur-2xl opacity-50 group-hover:scale-150 transition-transform duration-700`}></div>
+                {/* Decoración de fondo sutil */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-700"></div>
 
-                <div className={`w-16 h-16 rounded-2xl ${s.bgColor} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 relative z-10 backdrop-blur-sm`}>
+                {/* Círculo del Icono (Vidrio claro sobre verde) */}
+                <div className={`w-20 h-20 rounded-full ${s.bgColor} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 backdrop-blur-md border border-white/20 shadow-inner relative z-10`}>
                   <div className="transform group-hover:rotate-6 transition-transform duration-500">
                     {s.icon}
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-serif font-bold text-brand-dark mb-3 group-hover:text-brand-terra transition-colors relative z-10">
+                {/* Título y Texto */}
+                <h3 className="text-xl font-serif font-bold text-brand-text mb-3 relative z-10">
                   {s.title}
                 </h3>
                 
-                <p className="text-stone-600 leading-relaxed text-sm font-light relative z-10">
+                <p className="text-brand-text/80 leading-relaxed text-sm font-sans relative z-10">
                   {s.desc}
                 </p>
+
+                {/* Borde inferior decorativo al hacer hover */}
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-brand-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
               </div>
             </Reveal>
           ))}

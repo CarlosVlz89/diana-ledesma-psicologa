@@ -2,18 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Efecto Liquid Glass / Vidrio Esmerilado */
-.glass-panel {
-  @apply bg-white/40 backdrop-blur-md border border-white/50 shadow-xl;
-  /* Esto crea: Fondo semitransparente + Borroso detrás + Borde sutil */
-}
+/* --- ESTILO BOSQUE DE OTOÑO / LIQUID GLASS --- */
 
-/* Para tarjetas interactivas (hover) */
-.glass-card {
-  @apply glass-panel transition-all duration-500 hover:bg-white/60 hover:-translate-y-2 hover:shadow-2xl rounded-2xl;
-}
-
-/* El fondo orgánico general */
 body {
-  @apply bg-brand-cream text-brand-dark;
+  /* Fondo Crema de Té #FAF3E0 */
+  @apply bg-brand-bg text-brand-text antialiased selection:bg-brand-sage/30 selection:text-brand-text;
+}
+
+/* Efecto Cristal Líquido (Base) */
+.glass-panel {
+  /* Fondo salvia muy suave + Blur intenso + Borde fino */
+  @apply bg-brand-sage/10 backdrop-blur-xl border border-white/40 shadow-xl rounded-3xl;
+}
+
+/* Tarjetas Interactivas (Hover) */
+.glass-card {
+  @apply glass-panel transition-all duration-500 hover:bg-white/40 hover:-translate-y-2 hover:shadow-2xl hover:border-white/60 cursor-default;
+}
+
+/* Animaciones de entrada */
+.animate-fade-in {
+  animation: fadeIn 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }

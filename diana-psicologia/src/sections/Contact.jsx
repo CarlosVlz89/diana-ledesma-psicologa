@@ -5,56 +5,54 @@ import Reveal from '../components/ui/Reveal';
 import Button from '../components/ui/Button';
 
 const Contact = () => (
-  // Fondo gradiente cálido
-  <div className="bg-gradient-to-br from-brand-cream via-brand-cream to-brand-sage/10">
+  <div className="bg-gradient-to-t from-brand-sage/20 to-transparent">
     <Section id="contact">
-      <div className="grid lg:grid-cols-2 gap-16">
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        
+        {/* Columna Izquierda: Datos de Contacto */}
         <Reveal>
           <div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-6">Contacto y Agenda</h2>
-            <p className="text-stone-600 text-lg mb-8 font-light">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text mb-6">Contacto y Agenda</h2>
+            <p className="text-brand-text/80 text-lg mb-8 font-sans">
               Dar el primer paso es lo más importante. Estoy aquí para resolver tus dudas y acompañarte en el proceso.
             </p>
             
             <div className="space-y-6">
               <div className="flex items-start gap-4 group">
-                <div className="bg-white p-3 rounded-full shadow-sm text-brand-terra group-hover:scale-110 transition-transform border border-brand-sand">
+                <div className="bg-white/60 p-3 rounded-full shadow-sm text-brand-accent group-hover:scale-110 transition-transform border border-white/50 backdrop-blur-sm">
                   <MapPin />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-dark">Consultorio</h4>
-                  <p className="text-stone-600">Colonia Providencia / Zona Centro<br/>Guadalajara, Jalisco.</p>
+                  <h4 className="font-bold text-brand-text">Consultorio</h4>
+                  <p className="text-brand-text/70">Colonia Providencia / Zona Centro<br/>Guadalajara, Jalisco.</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-4 group">
-                <div className="bg-white p-3 rounded-full shadow-sm text-brand-sage group-hover:scale-110 transition-transform border border-brand-sand">
+                <div className="bg-white/60 p-3 rounded-full shadow-sm text-brand-sage group-hover:scale-110 transition-transform border border-white/50 backdrop-blur-sm">
                   <Phone />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-dark">WhatsApp</h4>
-                  <p className="text-stone-600 mb-2">33 1836 3829</p>
-                  <a href="https://wa.me/523318363829" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-brand-sage hover:text-brand-dark hover:underline transition-colors">
+                  <h4 className="font-bold text-brand-text">WhatsApp</h4>
+                  <p className="text-brand-text/70 mb-2">33 1836 3829</p>
+                  <a href="https://wa.me/523318363829" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-brand-sage hover:text-brand-accent hover:underline transition-colors">
                     Enviar mensaje directo →
                   </a>
                 </div>
               </div>
 
-              {/* AQUÍ ESTÁ EL CAMBIO DE INSTAGRAM */}
               <div className="flex items-start gap-4 group">
-                <div className="bg-white p-3 rounded-full shadow-sm text-brand-terra group-hover:scale-110 transition-transform border border-brand-sand">
+                <div className="bg-white/60 p-3 rounded-full shadow-sm text-brand-accent group-hover:scale-110 transition-transform border border-white/50 backdrop-blur-sm">
                   <Instagram />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-dark">Instagram</h4>
-                  {/* Nombre de usuario actualizado */}
-                  <p className="text-stone-600 mb-2">Psic. Diana Ledesma</p>
-                  {/* Link actualizado */}
+                  <h4 className="font-bold text-brand-text">Instagram</h4>
+                  <p className="text-brand-text/70 mb-2">Psic. Diana Ledesma</p>
                   <a 
                     href="https://www.instagram.com/psic.dianaledesma?utm_source=qr&igsh=NTdmdjk4dDE1enJp" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-sm font-bold text-brand-terra hover:text-brand-dark hover:underline transition-colors"
+                    className="text-sm font-bold text-brand-accent hover:text-brand-text hover:underline transition-colors"
                   >
                     Ver contenido y tips →
                   </a>
@@ -64,33 +62,47 @@ const Contact = () => (
           </div>
         </Reveal>
 
+        {/* Columna Derecha: Tarjeta Verde (Estilo de tu captura) */}
         <Reveal delay={200}>
-          <div className="glass-card p-8 border border-white/60 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-terra to-brand-sage"></div>
+          {/* Fondo Verde Salvia Sólido/Glass */}
+          <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl bg-brand-sage p-10 border border-white/20">
             
-            <h3 className="text-2xl font-bold text-brand-dark mb-6">Agenda tu Sesión</h3>
+            {/* Marca de agua decorativa (Icono grande transparente) */}
+            <Calendar className="absolute -top-6 -right-6 w-48 h-48 text-brand-text opacity-5 rotate-12" />
+
+            <h3 className="text-3xl font-serif font-bold text-brand-text mb-4 relative z-10 text-center">
+              Reserva tu primera sesión
+            </h3>
             
-            <div className="bg-white/50 rounded-xl p-6 text-center mb-8 border border-brand-sand">
-              <Calendar className="w-12 h-12 text-brand-terra mx-auto mb-3 animate-float" />
-              <p className="text-brand-dark font-medium mb-4">
-                Consulta disponibilidad en tiempo real.
-              </p>
-              
-              <Button className="w-full bg-brand-dark hover:bg-brand-terra text-brand-cream shadow-lg">
-                 Ver Horarios Disponibles
+            <p className="text-brand-text/70 font-sans text-center mb-8 relative z-10">
+              Consulta mi disponibilidad en tiempo real a través de Google Calendar y elige el horario que mejor se adapte a tu ritmo de vida.
+            </p>
+            
+            {/* Botón Arcilla (Accent) */}
+            <div className="relative z-10">
+              <Button className="w-full shadow-xl hover:shadow-2xl" variant="primary">
+                 Abrir Calendario <Calendar size={18}/>
               </Button>
-              
-              <p className="text-xs text-stone-500 mt-3 font-light">
+              <p className="text-xs text-brand-text/40 mt-4 text-center">
                 Serás redirigido al sistema seguro de citas.
               </p>
             </div>
 
-            <div className="border-t border-brand-sand pt-6">
-              <h4 className="font-bold text-brand-dark mb-2">Dudas rápidas</h4>
-               <ul className="text-sm text-stone-600 space-y-2 font-light">
-                 <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-sage"/> Duración de sesión: 60 minutos.</li>
-                 <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-sage"/> Modalidad: Presencial y Online (Zoom).</li>
-                 <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-sage"/> Pago: Efectivo o Transferencia.</li>
+            {/* Sección inferior con líneas divisorias sutiles */}
+            <div className="mt-8 pt-6 border-t border-brand-text/10">
+               <ul className="text-sm text-brand-text/60 space-y-3 font-sans font-medium">
+                 <li className="flex items-center gap-3">
+                   <div className="p-1 bg-brand-text/10 rounded-full"><CheckCircle size={12}/></div>
+                   Duración de sesión: 60 minutos.
+                 </li>
+                 <li className="flex items-center gap-3">
+                   <div className="p-1 bg-brand-text/10 rounded-full"><CheckCircle size={12}/></div>
+                   Modalidad: Presencial y Online.
+                 </li>
+                 <li className="flex items-center gap-3">
+                   <div className="p-1 bg-brand-text/10 rounded-full"><CheckCircle size={12}/></div>
+                   Pago: Efectivo o Transferencia.
+                 </li>
                </ul>
             </div>
           </div>
