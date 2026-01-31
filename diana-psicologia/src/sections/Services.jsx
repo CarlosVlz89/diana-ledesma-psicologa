@@ -8,8 +8,7 @@ const Services = () => {
     {
       title: "Terapia Individual Adultos",
       desc: "Espacio seguro para abordar ansiedad, depresión, duelo o crecimiento personal.",
-      icon: <User className="w-8 h-8 text-brand-text" />, 
-      // El bgColor ahora es para el círculo del icono, más claro para contrastar
+      icon: <User className="w-8 h-8 text-brand-text" />,
       bgColor: "bg-brand-bg/30" 
     },
     {
@@ -51,13 +50,13 @@ const Services = () => {
           {services.map((s, i) => (
             <Reveal key={i} delay={i * 100}>
               
-              {/* TARJETA ESTILO "GREEN SAGE" (Igual al Contacto) */}
-              <div className="bg-brand-sage rounded-[2rem] p-8 h-full group relative overflow-hidden flex flex-col items-center text-center shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-white/20">
+              {/* CAMBIO AQUÍ: bg-brand-accent en lugar de bg-brand-sage */}
+              <div className="bg-brand-accent rounded-[2rem] p-8 h-full group relative overflow-hidden flex flex-col items-center text-center shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-white/20">
                 
                 {/* Decoración de fondo sutil */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-700"></div>
 
-                {/* Círculo del Icono (Vidrio claro sobre verde) */}
+                {/* Círculo del Icono */}
                 <div className={`w-20 h-20 rounded-full ${s.bgColor} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 backdrop-blur-md border border-white/20 shadow-inner relative z-10`}>
                   <div className="transform group-hover:rotate-6 transition-transform duration-500">
                     {s.icon}
@@ -73,8 +72,8 @@ const Services = () => {
                   {s.desc}
                 </p>
 
-                {/* Borde inferior decorativo al hacer hover */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-brand-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                {/* CAMBIO AQUÍ: Borde inferior ahora es CREMA (bg-brand-bg) para que resalte */}
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-brand-bg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
               </div>
             </Reveal>
           ))}
