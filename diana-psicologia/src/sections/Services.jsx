@@ -8,26 +8,26 @@ const Services = () => {
     {
       title: "Terapia Individual Adultos",
       desc: "Espacio seguro para abordar ansiedad, depresión, duelo o crecimiento personal.",
-      icon: <User className="w-8 h-8 text-brand-text" />,
-      bgColor: "bg-brand-bg/30" 
+      icon: <User className="w-8 h-8 text-brand-accent" />, // Icono color Arcilla
+      bgColor: "bg-white/50" // Fondo del icono más claro
     },
     {
       title: "Niños y Adolescentes",
       desc: "Atención especializada a partir de los 10 años. Manejo emocional y conductual.",
-      icon: <Heart className="w-8 h-8 text-brand-text" />,
-      bgColor: "bg-brand-bg/30"
+      icon: <Heart className="w-8 h-8 text-brand-accent" />,
+      bgColor: "bg-white/50"
     },
     {
       title: "Enfoque Cognitivo Conductual",
       desc: "Trabajamos en identificar y cambiar patrones de pensamiento que afectan tu bienestar.",
-      icon: <Brain className="w-8 h-8 text-brand-text" />,
-      bgColor: "bg-brand-bg/30"
+      icon: <Brain className="w-8 h-8 text-brand-accent" />,
+      bgColor: "bg-white/50"
     },
     {
       title: "Terapias Contextuales",
       desc: "DBT, ACT, AC y FAP. Enfocadas en la aceptación, mindfulness y valores de vida.",
-      icon: <BookOpen className="w-8 h-8 text-brand-text" />,
-      bgColor: "bg-brand-bg/30"
+      icon: <BookOpen className="w-8 h-8 text-brand-accent" />,
+      bgColor: "bg-white/50"
     }
   ];
 
@@ -50,30 +50,30 @@ const Services = () => {
           {services.map((s, i) => (
             <Reveal key={i} delay={i * 100}>
               
-              {/* CAMBIO AQUÍ: bg-brand-accent en lugar de bg-brand-sage */}
-              <div className="bg-brand-accent rounded-[2rem] p-8 h-full group relative overflow-hidden flex flex-col items-center text-center shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-white/20">
+              {/* CAMBIO PRINCIPAL: bg-brand-accent/5 (Muy suave) y borde sutil */}
+              <div className="bg-brand-accent/5 backdrop-blur-md rounded-[2rem] p-8 h-full group relative overflow-hidden flex flex-col items-center text-center shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-brand-accent/10 hover:border-brand-accent/30">
                 
-                {/* Decoración de fondo sutil */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-700"></div>
+                {/* Mancha decorativa suave detrás */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-accent/10 rounded-full blur-2xl -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-700"></div>
 
                 {/* Círculo del Icono */}
-                <div className={`w-20 h-20 rounded-full ${s.bgColor} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 backdrop-blur-md border border-white/20 shadow-inner relative z-10`}>
+                <div className={`w-20 h-20 rounded-full ${s.bgColor} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 backdrop-blur-md border border-white/40 shadow-sm relative z-10`}>
                   <div className="transform group-hover:rotate-6 transition-transform duration-500">
                     {s.icon}
                   </div>
                 </div>
                 
-                {/* Título y Texto */}
+                {/* Título y Texto (Oscuros para leerse bien) */}
                 <h3 className="text-xl font-serif font-bold text-brand-text mb-3 relative z-10">
                   {s.title}
                 </h3>
                 
-                <p className="text-brand-text/80 leading-relaxed text-sm font-sans relative z-10">
+                <p className="text-brand-text/70 leading-relaxed text-sm font-sans relative z-10">
                   {s.desc}
                 </p>
 
-                {/* CAMBIO AQUÍ: Borde inferior ahora es CREMA (bg-brand-bg) para que resalte */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-brand-bg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                {/* Borde inferior decorativo en Arcilla */}
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-brand-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
               </div>
             </Reveal>
           ))}

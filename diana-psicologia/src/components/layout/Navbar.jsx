@@ -12,13 +12,9 @@ const Navbar = ({ user, isAdmin }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Bloquear el scroll del body cuando el menú está abierto
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    if (isOpen) { document.body.style.overflow = 'hidden'; } 
+    else { document.body.style.overflow = 'unset'; }
   }, [isOpen]);
   
   const navLinks = [
@@ -36,7 +32,8 @@ const Navbar = ({ user, isAdmin }) => {
 
   return (
     <>
-      <nav className={`fixed w-full top-0 z-50 transition-all duration-700 ${scrolled ? 'bg-brand-sage/90 backdrop-blur-xl border-b border-white/20 py-3 shadow-lg' : 'bg-transparent py-6'}`}>
+      {/* CORRECCIÓN DE VELOCIDAD: Cambié 'duration-700' por 'duration-300' */}
+      <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-brand-sage/90 backdrop-blur-xl border-b border-white/20 py-3 shadow-lg' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             
@@ -74,7 +71,7 @@ const Navbar = ({ user, isAdmin }) => {
               )}
             </div>
 
-            {/* Mobile Menu Button (Hamburguesa) */}
+            {/* Mobile Menu Button */}
             <div className="md:hidden relative z-50">
               <button 
                 onClick={() => setIsOpen(!isOpen)} 
@@ -87,28 +84,22 @@ const Navbar = ({ user, isAdmin }) => {
         </div>
       </nav>
 
-      {/* --- MENÚ MÓVIL FULL SCREEN (OVERLAY) --- */}
+      {/* Menú Móvil Full Screen (Se mantiene igual) */}
       {isOpen && (
         <div className="fixed inset-0 z-40 bg-brand-sage/95 backdrop-blur-xl animate-fade-in flex flex-col justify-center items-center">
-          
-          {/* Decoración de fondo */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-accent/20 rounded-full blur-3xl -ml-20 -mb-20"></div>
-
-          {/* Lista de Enlaces Centrados */}
           <div className="space-y-8 text-center relative z-10">
             {navLinks.map((link, idx) => (
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                // Animación escalonada para cada link
                 style={{ animationDelay: `${idx * 100}ms` }}
                 className="block w-full text-3xl font-serif font-bold text-brand-bg hover:text-brand-accent transition-all duration-300 hover:scale-110 animate-fade-in-up"
               >
                 {link.name}
               </button>
             ))}
-            
             {isAdmin && (
                <div className="pt-4 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
                  <span className="inline-flex items-center gap-2 text-xs text-brand-bg/60 font-bold bg-black/10 px-4 py-2 rounded-full border border-white/10">
@@ -117,8 +108,6 @@ const Navbar = ({ user, isAdmin }) => {
                </div>
             )}
           </div>
-
-          {/* Footer decorativo del menú */}
           <div className="absolute bottom-12 text-center">
             <p className="text-brand-bg/40 text-xs tracking-widest uppercase font-sans">
               Construyendo bienestar integral
