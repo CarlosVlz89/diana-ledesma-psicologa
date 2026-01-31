@@ -33,7 +33,7 @@ const Navbar = ({ user, isAdmin }) => {
   return (
     <>
       {/* CORRECCIÓN DE VELOCIDAD: Cambié 'duration-700' por 'duration-300' */}
-      <nav className={`fixed w-full top-0 z-50 transition-all duration-100 ${scrolled ? 'bg-brand-sage/90 backdrop-blur-xl border-b border-white/20 py-3 shadow-lg' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed w-full top-0 z-50 transition-all duration-0 ${scrolled ? 'bg-brand-sage/90 backdrop-blur-xl border-b border-white/20 py-3 shadow-lg' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             
