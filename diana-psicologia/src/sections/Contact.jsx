@@ -9,7 +9,7 @@ const Contact = () => (
     <Section id="contact">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         
-        {/* Columna Izquierda (Se mantiene igual) */}
+        {/* Columna Izquierda (Datos de Contacto) */}
         <Reveal>
           <div>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text mb-6">Contacto y Agenda</h2>
@@ -69,7 +69,7 @@ const Contact = () => (
           </div>
         </Reveal>
 
-        {/* Columna Derecha: Tarjeta Agenda con DOBLE BOTÓN */}
+        {/* Columna Derecha: Tarjeta Agenda con Links Reales */}
         <Reveal delay={200}>
           <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl bg-brand-accent/5 backdrop-blur-md p-10 border border-brand-accent/10">
             <Calendar className="absolute -top-6 -right-6 w-48 h-48 text-brand-accent opacity-5 rotate-12" />
@@ -77,14 +77,14 @@ const Contact = () => (
             <h3 className="text-3xl font-serif font-bold text-brand-text mb-4 relative z-10 text-center">
               Encuentra tu momento ideal
             </h3>
+            
             <p className="text-brand-text/80 font-sans text-center mb-8 relative z-10 leading-relaxed">
-              Elige la modalidad que prefieras para ver los horarios disponibles:
+              Te invito a explorar los horarios disponibles y elegir con total tranquilidad el espacio que mejor se adapte a ti.
             </p>
             
             <div className="grid gap-4 relative z-10">
-              {/* BOTÓN 1: ONLINE */}
+              {/* BOTÓN 1: ONLINE (LINK REAL CONECTADO) */}
               <a 
-                /* 👇 PEGA AQUÍ EL LINK DE LA AGENDA ONLINE 👇 */
                 href="https://calendar.app.google/7tm3XgfTdGsZntvN8" 
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -95,9 +95,8 @@ const Contact = () => (
                 </Button>
               </a>
 
-              {/* BOTÓN 2: PRESENCIAL */}
+              {/* BOTÓN 2: PRESENCIAL (LINK REAL CONECTADO) */}
               <a 
-                /* 👇 PEGA AQUÍ EL LINK DE LA AGENDA PRESENCIAL 👇 */
                 href="https://calendar.app.google/jSvAQqKxyrVtb7jt6" 
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -107,6 +106,10 @@ const Contact = () => (
                    <User size={18}/> Cita Presencial
                 </Button>
               </a>
+              
+              <p className="text-xs text-brand-text/50 mt-2 text-center">
+                Serás redirigido al sistema seguro de citas de Google.
+              </p>
             </div>
 
             <div className="mt-8 pt-6 border-t border-brand-accent/10">
