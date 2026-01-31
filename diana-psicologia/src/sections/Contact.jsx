@@ -1,5 +1,6 @@
 import React from 'react';
-import { MapPin, Phone, Instagram, Calendar, CheckCircle, ExternalLink } from 'lucide-react';
+/* CAMBIO: Importamos ArrowRight en lugar de ExternalLink */
+import { MapPin, Phone, Instagram, Calendar, CheckCircle, ArrowRight } from 'lucide-react';
 import Section from '../components/ui/Section';
 import Reveal from '../components/ui/Reveal';
 import Button from '../components/ui/Button';
@@ -17,85 +18,84 @@ const Contact = () => (
               Dar el primer paso es lo más importante. Estoy aquí para resolver tus dudas y acompañarte en el proceso.
             </p>
             
-            <div className="space-y-6">
-              
-              {/* 1. UBICACIÓN (Diseño Original + Icono crece) */}
-              <div className="flex items-start gap-4 group">
+            <div className="space-y-8">
+              {/* 1. UBICACIÓN */}
+              <div className="flex items-start gap-4 group cursor-pointer">
                 <div className="bg-white/60 p-3 rounded-full shadow-sm text-brand-accent group-hover:scale-110 transition-transform duration-300 border border-white/50 backdrop-blur-sm">
                   <MapPin />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-text">Consultorio</h4>
+                  <h4 className="font-bold text-brand-text mb-1">Consultorio</h4>
                   <a 
-                    href="https://www.google.com/maps/search/?api=1&query=Calle+Toltecas+3446,+Monraz,+44670+Guadalajara,+Jal." 
+                    href="https://maps.app.goo.gl/389pHWCyAvtYHotB6" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-brand-text/70 hover:text-brand-accent transition-colors block leading-relaxed"
+                    className="text-brand-text/70 group-hover:text-brand-accent transition-colors block leading-relaxed"
                   >
                     Calle Toltecas 3446, Monraz,<br/>
-                    44670 Guadalajara, Jal. <br/>
-                    <span className="text-xs font-bold flex items-center gap-1 mt-1 text-brand-sage">
-                      Ver ubicación en Maps <ExternalLink size={10}/>
+                    44670 Guadalajara, Jal.
+                    {/* CAMBIO: Flechita (ArrowRight) */}
+                    <span className="text-xs font-bold flex items-center gap-1 mt-2 text-brand-sage">
+                      Ver ubicación en Maps <ArrowRight size={14}/>
                     </span>
                   </a>
                 </div>
               </div>
               
-              {/* 2. WHATSAPP (Texto convertido en enlace completo) */}
+              {/* 2. WHATSAPP */}
               <div className="flex items-start gap-4 group cursor-pointer">
                 <div className="bg-white/60 p-3 rounded-full shadow-sm text-brand-sage group-hover:scale-110 transition-transform duration-300 border border-white/50 backdrop-blur-sm">
                   <Phone />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-text">WhatsApp</h4>
-                  {/* Todo el bloque ahora es el link, igual que el mapa */}
+                  <h4 className="font-bold text-brand-text mb-1">WhatsApp</h4>
                   <a 
                     href="https://wa.me/523318363829" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-brand-text/70 hover:text-brand-accent transition-colors block leading-relaxed"
+                    className="text-brand-text/70 group-hover:text-brand-accent transition-colors block leading-relaxed"
                   >
                     33 1836 3829
                     <br/>
-                    <span className="text-xs font-bold flex items-center gap-1 mt-1 text-brand-sage">
-                      Enviar mensaje directo <ExternalLink size={10}/>
+                    {/* CAMBIO: Flechita (ArrowRight) */}
+                    <span className="text-xs font-bold flex items-center gap-1 mt-2 text-brand-sage">
+                      Enviar mensaje directo <ArrowRight size={14}/>
                     </span>
                   </a>
                 </div>
               </div>
 
-              {/* 3. INSTAGRAM (Texto convertido en enlace completo) */}
+              {/* 3. INSTAGRAM */}
               <div className="flex items-start gap-4 group cursor-pointer">
                 <div className="bg-white/60 p-3 rounded-full shadow-sm text-brand-accent group-hover:scale-110 transition-transform duration-300 border border-white/50 backdrop-blur-sm">
                   <Instagram />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-text">Instagram</h4>
-                  {/* Todo el bloque ahora es el link, igual que el mapa */}
+                  <h4 className="font-bold text-brand-text mb-1">Instagram</h4>
                   <a 
                     href="https://www.instagram.com/psic.dianaledesma?utm_source=qr&igsh=NTdmdjk4dDE1enJp" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-brand-text/70 hover:text-brand-accent transition-colors block leading-relaxed"
+                    className="text-brand-text/70 group-hover:text-brand-accent transition-colors block leading-relaxed"
                   >
                     Psic. Diana Ledesma
                     <br/>
-                    <span className="text-xs font-bold flex items-center gap-1 mt-1 text-brand-sage">
-                      Ver contenido y tips <ExternalLink size={10}/>
+                    {/* CAMBIO: Flechita (ArrowRight) */}
+                    <span className="text-xs font-bold flex items-center gap-1 mt-2 text-brand-sage">
+                      Ver contenido y tips <ArrowRight size={14}/>
                     </span>
                   </a>
                 </div>
               </div>
-
             </div>
           </div>
         </Reveal>
 
-        {/* Columna Derecha (Sin cambios, diseño original) */}
+        {/* Columna Derecha: Tarjeta Cristal Arcilla (Suave) */}
         <Reveal delay={200}>
-          <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl bg-brand-accent p-10 border border-white/20">
+          <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl bg-brand-accent/5 backdrop-blur-md p-10 border border-brand-accent/10">
             
-            <Calendar className="absolute -top-6 -right-6 w-48 h-48 text-white opacity-10 rotate-12" />
+            <Calendar className="absolute -top-6 -right-6 w-48 h-48 text-brand-accent opacity-5 rotate-12" />
 
             <h3 className="text-3xl font-serif font-bold text-brand-text mb-4 relative z-10 text-center">
               Encuentra tu momento ideal
@@ -107,7 +107,7 @@ const Contact = () => (
             
             <div className="relative z-10">
               <Button 
-                className="w-full shadow-xl hover:shadow-2xl bg-brand-bg !text-brand-accent hover:bg-white hover:text-brand-accent border-none font-bold" 
+                className="w-full shadow-xl hover:shadow-2xl bg-brand-accent text-white hover:bg-brand-text border-none font-bold" 
               >
                  Ver Agenda Disponible <Calendar size={18}/>
               </Button>
@@ -116,18 +116,18 @@ const Contact = () => (
               </p>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-brand-text/10">
+            <div className="mt-8 pt-6 border-t border-brand-accent/10">
                <ul className="text-sm text-brand-text/70 space-y-3 font-sans font-medium">
                  <li className="flex items-center gap-3">
-                   <div className="p-1 bg-brand-text/10 rounded-full"><CheckCircle size={12}/></div>
+                   <div className="p-1 bg-brand-accent/10 text-brand-accent rounded-full"><CheckCircle size={12}/></div>
                    Duración de sesión: 60 minutos.
                  </li>
                  <li className="flex items-center gap-3">
-                   <div className="p-1 bg-brand-text/10 rounded-full"><CheckCircle size={12}/></div>
+                   <div className="p-1 bg-brand-accent/10 text-brand-accent rounded-full"><CheckCircle size={12}/></div>
                    Modalidad: Presencial y Online.
                  </li>
                  <li className="flex items-center gap-3">
-                   <div className="p-1 bg-brand-text/10 rounded-full"><CheckCircle size={12}/></div>
+                   <div className="p-1 bg-brand-accent/10 text-brand-accent rounded-full"><CheckCircle size={12}/></div>
                    Pago: Efectivo o Transferencia.
                  </li>
                </ul>
