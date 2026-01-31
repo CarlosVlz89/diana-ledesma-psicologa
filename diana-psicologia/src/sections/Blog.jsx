@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Calendar as CalendarIcon, ArrowRight, X, User } from 'lucide-react';
+import { Plus, Edit2, Trash2, Calendar as CalendarIcon, ArrowRight, X, User, ChevronDown, ChevronUp } from 'lucide-react';
 import { collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { db } from '../firebase'; 
+import { db } from '../firebase'; // Asegúrate que la ruta sea correcta (config/firebase o ../firebase)
 import Section from '../components/ui/Section';
 import Reveal from '../components/ui/Reveal';
 import Button from '../components/ui/Button';
@@ -30,6 +30,10 @@ const Blog = ({ user, isAdmin }) => {
   const [currentPost, setCurrentPost] = useState({ title: '', content: '', category: 'Bienestar', imageUrl: '' });
   const [error, setError] = useState('');
 
+  // ESTADO NUEVO: Controla si vemos 3 o todos
+  const [showAll, setShowAll] = useState(false);
+
+  // Carga de datos (Conectado a 'blog_posts' como tenías antes)
   useEffect(() => {
     const q = query(collection(db, 'blog_posts'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -40,20 +44,58 @@ const Blog = ({ user, isAdmin }) => {
     return () => unsubscribe();
   }, []);
 
-  // ... (Funciones handleSavePost, handleDelete, handleEditClick se mantienen igual)
-  const handleSavePost = async (e) => { e.preventDefault(); if (!isAdmin) return; try { const postData = { title: currentPost.title, content: currentPost.content, category: currentPost.category, imageUrl: currentPost.imageUrl, author: "Diana Ledesma", authorId: user.uid, createdAt: serverTimestamp(), }; if (currentPost.id) { await updateDoc(doc(db, 'blog_posts', currentPost.id), postData); } else { await addDoc(collection(db, 'blog_posts'), postData); } setIsEditing(false); setCurrentPost({ title: '', content: '', category: 'Bienestar', imageUrl: '' }); } catch (err) { setError('Error al guardar.'); } };
-  const handleDelete = async (e, id) => { e.stopPropagation(); if(!confirm("¿Borrar artículo?")) return; try { await deleteDoc(doc(db, 'blog_posts', id)); } catch (err) { console.error(err); } };
-  const handleEditClick = (e, post) => { e.stopPropagation(); setCurrentPost(post); setIsEditing(true); };
+  // LÓGICA NUEVA: Filtramos qué posts se ven
+  const visiblePosts = showAll ? posts : posts.slice(0, 3);
+
+  // Funciones de Admin (Crear, Editar, Borrar)
+  const handleSavePost = async (e) => { 
+    e.preventDefault(); 
+    if (!isAdmin) return; 
+    try { 
+      const postData = { 
+        title: currentPost.title, 
+        content: currentPost.content, 
+        category: currentPost.category, 
+        imageUrl: currentPost.imageUrl, 
+        author: "Diana Ledesma", 
+        authorId: user.uid, 
+        createdAt: serverTimestamp(), 
+      }; 
+      if (currentPost.id) { 
+        await updateDoc(doc(db, 'blog_posts', currentPost.id), postData); 
+      } else { 
+        await addDoc(collection(db, 'blog_posts'), postData); 
+      } 
+      setIsEditing(false); 
+      setCurrentPost({ title: '', content: '', category: 'Bienestar', imageUrl: '' }); 
+    } catch (err) { 
+      setError('Error al guardar.'); 
+    } 
+  };
+
+  const handleDelete = async (e, id) => { 
+    e.stopPropagation(); 
+    if(!confirm("¿Borrar artículo?")) return; 
+    try { 
+      await deleteDoc(doc(db, 'blog_posts', id)); 
+    } catch (err) { 
+      console.error(err); 
+    } 
+  };
+
+  const handleEditClick = (e, post) => { 
+    e.stopPropagation(); 
+    setCurrentPost(post); 
+    setIsEditing(true); 
+  };
 
 
   return (
     <Section id="blog" className="relative">
       <Reveal>
-        {/* Borde inferior sutil en Salvia */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-4 border-b border-brand-sage/20 pb-8">
           <div className="text-center md:text-left">
              <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text">Blog de Salud Mental</h2>
-             {/* 1. Línea decorativa SALVIA */}
              <div className="h-1 w-20 bg-brand-sage mt-4 rounded-full mx-auto md:mx-0"></div>
           </div>
           {isAdmin && !isEditing && (
@@ -64,34 +106,51 @@ const Blog = ({ user, isAdmin }) => {
         </div>
       </Reveal>
 
-      {/* Editor Admin (Se mantiene igual) */}
+      {/* Editor Admin */}
       {isEditing && isAdmin && (
         <div className="glass-panel p-8 mb-12 animate-fade-in bg-white/80">
-          {/* ... Formulario del editor ... */}
-          <h3 className="text-xl font-bold mb-6 text-brand-text flex items-center gap-2"><Edit2 size={20} className="text-brand-accent"/> Editor</h3><form onSubmit={handleSavePost} className="space-y-4"><div className="col-span-2"><label className="block text-sm font-medium text-brand-text mb-1">Imagen URL</label><input type="text" value={currentPost.imageUrl || ''} onChange={(e) => setCurrentPost({...currentPost, imageUrl: e.target.value})} className="w-full p-3 border border-brand-sage/30 rounded-xl bg-white/50 outline-none focus:border-brand-accent" placeholder="URL de imagen..." /></div><div><label className="block text-sm font-medium text-brand-text mb-1">Título</label><input type="text" required value={currentPost.title} onChange={(e) => setCurrentPost({...currentPost, title: e.target.value})} className="w-full p-3 border border-brand-sage/30 rounded-xl bg-white/50 outline-none focus:border-brand-accent" /></div><div><label className="block text-sm font-medium text-brand-text mb-1">Categoría</label><select value={currentPost.category} onChange={(e) => setCurrentPost({...currentPost, category: e.target.value})} className="w-full p-3 border border-brand-sage/30 rounded-xl bg-white/50 outline-none focus:border-brand-accent">{Object.keys(categoryImages).map(cat => <option key={cat}>{cat}</option>)}</select></div><div><label className="block text-sm font-medium text-brand-text mb-1">Contenido</label><textarea required rows={6} value={currentPost.content} onChange={(e) => setCurrentPost({...currentPost, content: e.target.value})} className="w-full p-3 border border-brand-sage/30 rounded-xl bg-white/50 outline-none focus:border-brand-accent" /></div><div className="flex gap-4 justify-end pt-4"><Button variant="secondary" onClick={() => { setIsEditing(false); setCurrentPost({ title: '', content: '', category: 'Bienestar', imageUrl: '' }); }}>Cancelar</Button><Button type="submit">Publicar</Button></div></form>
+          <h3 className="text-xl font-bold mb-6 text-brand-text flex items-center gap-2"><Edit2 size={20} className="text-brand-accent"/> Editor</h3>
+          <form onSubmit={handleSavePost} className="space-y-4">
+            <div className="col-span-2">
+              <label className="block text-sm font-medium text-brand-text mb-1">Imagen URL</label>
+              <input type="text" value={currentPost.imageUrl || ''} onChange={(e) => setCurrentPost({...currentPost, imageUrl: e.target.value})} className="w-full p-3 border border-brand-sage/30 rounded-xl bg-white/50 outline-none focus:border-brand-accent" placeholder="URL de imagen..." />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-brand-text mb-1">Título</label>
+              <input type="text" required value={currentPost.title} onChange={(e) => setCurrentPost({...currentPost, title: e.target.value})} className="w-full p-3 border border-brand-sage/30 rounded-xl bg-white/50 outline-none focus:border-brand-accent" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-brand-text mb-1">Categoría</label>
+              <select value={currentPost.category} onChange={(e) => setCurrentPost({...currentPost, category: e.target.value})} className="w-full p-3 border border-brand-sage/30 rounded-xl bg-white/50 outline-none focus:border-brand-accent">{Object.keys(categoryImages).map(cat => <option key={cat}>{cat}</option>)}</select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-brand-text mb-1">Contenido</label>
+              <textarea required rows={6} value={currentPost.content} onChange={(e) => setCurrentPost({...currentPost, content: e.target.value})} className="w-full p-3 border border-brand-sage/30 rounded-xl bg-white/50 outline-none focus:border-brand-accent" />
+            </div>
+            <div className="flex gap-4 justify-end pt-4">
+              <Button variant="secondary" onClick={() => { setIsEditing(false); setCurrentPost({ title: '', content: '', category: 'Bienestar', imageUrl: '' }); }}>Cancelar</Button>
+              <Button type="submit">Publicar</Button>
+            </div>
+          </form>
         </div>
       )}
 
-      {/* Lista de Posts */}
+      {/* Lista de Posts (Ahora usa visiblePosts) */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post, i) => (
+        {visiblePosts.map((post, i) => (
           <Reveal key={post.id} delay={i * 100}>
             <article 
               onClick={() => setSelectedPost(post)} 
-              // 4. Borde hover SALVIA
-              className="glass-card flex flex-col h-full group bg-white/30 border-white/40 hover:border-brand-sage/40"
+              className="glass-card flex flex-col h-full group bg-white/30 border-white/40 hover:border-brand-sage/40 cursor-pointer"
             >
               <div className="h-56 relative overflow-hidden rounded-t-3xl">
                  <img src={post.imageUrl || categoryImages[post.category] || categoryImages['Bienestar']} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
-                 
-                 {/* 2. Etiqueta de Categoría SALVIA (Fondo verde, texto claro) */}
                  <span className="absolute top-4 left-4 bg-brand-sage/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase text-brand-bg shadow-sm border border-white/20">
                     {post.category}
                  </span>
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-3">
-                   {/* 3. Icono de fecha SALVIA */}
                    <div className="flex items-center gap-2 text-xs text-brand-sage font-medium">
                       <CalendarIcon size={12}/> {formatDate(post.createdAt)}
                    </div>
@@ -105,7 +164,6 @@ const Blog = ({ user, isAdmin }) => {
                 <h3 className="text-xl font-serif font-bold text-brand-text mb-3 leading-tight group-hover:text-brand-accent transition-colors">{post.title}</h3>
                 <p className="text-brand-text/80 text-sm line-clamp-3 mb-6 font-sans leading-relaxed flex-1">{post.content}</p>
                 
-                {/* Borde superior del footer sutil en Salvia */}
                 <div className="pt-4 border-t border-brand-sage/10 flex justify-between items-center">
                     <span className="text-xs text-brand-text/50 font-medium">Por Diana Ledesma</span>
                     <span className="text-brand-accent text-xs font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Leer más <ArrowRight size={12}/></span>
@@ -116,7 +174,24 @@ const Blog = ({ user, isAdmin }) => {
         ))}
       </div>
 
-      {/* Modal de Lectura (Se mantiene igual, ya usa la paleta base) */}
+      {/* NUEVO BOTÓN: VER MÁS / VER MENOS */}
+      {posts.length > 3 && (
+        <div className="mt-12 text-center animate-fade-in">
+          <Button 
+            onClick={() => setShowAll(!showAll)}
+            variant="outline"
+            className="min-w-[200px]"
+          >
+            {showAll ? (
+              <span className="flex items-center gap-2">Ver menos <ChevronUp size={18}/></span>
+            ) : (
+              <span className="flex items-center gap-2">Ver más artículos ({posts.length - 3} restantes) <ChevronDown size={18}/></span>
+            )}
+          </Button>
+        </div>
+      )}
+
+      {/* Modal de Lectura (Sin cambios) */}
       {selectedPost && (
         <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-brand-text/40 backdrop-blur-md transition-opacity" onClick={() => setSelectedPost(null)}></div>
@@ -125,7 +200,6 @@ const Blog = ({ user, isAdmin }) => {
                 <img src={selectedPost.imageUrl || categoryImages[selectedPost.category]} alt={selectedPost.title} className="w-full h-full object-cover"/>
                 <button onClick={() => setSelectedPost(null)} className="absolute top-4 right-4 bg-white/50 hover:bg-white text-brand-text p-2 rounded-full backdrop-blur-md"><X size={24} /></button>
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-brand-text/80 to-transparent p-6 sm:p-8 pt-20">
-                   {/* Etiqueta en el modal también Salvia */}
                    <span className="bg-brand-sage/90 text-brand-bg px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 inline-block border border-white/20">{selectedPost.category}</span>
                    <h2 className="text-2xl sm:text-4xl font-serif font-bold text-brand-bg leading-tight">{selectedPost.title}</h2>
                 </div>
