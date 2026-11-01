@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- SISTEMA VISUAL: WARM CLINICAL BOUTIQUE --- */
+
+body {
+  /* Fondo Crema de Té envolvente y texto de alto contraste */
+  @apply bg-brand-bg text-brand-text antialiased selection:bg-brand-sage/30 selection:text-brand-text;
+}
+
+/* Cristal Cálido Base (Warm Glassmorphism) */
+.glass-panel-warm {
+  background: rgba(255, 253, 249, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(130, 142, 130, 0.2);
+  box-shadow: 0 12px 24px -6px rgba(53, 50, 47, 0.08), 0 4px 8px -2px rgba(53, 50, 47, 0.04);
+  border-radius: 1.25rem;
+}
+
+/* Tarjetas Interactivas de Cristal Cálido */
+.glass-card-warm {
+  background: rgba(255, 253, 249, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(130, 142, 130, 0.18);
+  box-shadow: 0 4px 14px -2px rgba(53, 50, 47, 0.06);
+  border-radius: 1.25rem;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-warm:hover {
+  background: #FFFFFF;
+  border-color: rgba(133, 75, 36, 0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 35px -10px rgba(133, 75, 36, 0.12);
+}
+
+/* Compatibilidad retrospectiva con .glass-panel y .glass-card */
+.glass-panel {
+  @apply glass-panel-warm;
+}
+
+.glass-card {
+  @apply glass-card-warm;
+}
+
+/* Ocultar barra de scroll en carruseles táctiles móviles */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animaciones de entrada suaves */
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

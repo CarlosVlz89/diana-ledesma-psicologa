@@ -1,0 +1,126 @@
+rules_version = '2';
+
+// ===============================================================
+// Reglas de Seguridad de Cloud Firestore (Zero-Trust)
+// Proyecto: Diana Ledesma | Psicología Clínica (diana-psicologia)
+// ===============================================================
+//
+// Assumed Data Model
+// ------------------
+// Collection: blog_posts
+// Document ID: Identificador único autogenerado de Firestore ({postId})
+// Fields:
+//   - title: string (requerido, > 5 y <= 200 caracteres) - Título del artículo
+//   - content: string (requerido, > 20 y <= 50000 caracteres) - Contenido del artículo
+//   - category: string (opcional, 1-50 caracteres) - Categoría temática
+//   - imageUrl: string (opcional, 0-2048 caracteres) - URL de la imagen de portada
+//   - author: string (opcional, 1-100 caracteres) - Nombre de la autora (Diana Ledesma)
+//   - authorId: string (opcional, 1-128 caracteres) - UID del usuario autenticado
+//   - createdAt: timestamp (requerido en creación, inmutable en actualización, == request.time)
+//   - updatedAt: timestamp (opcional en creación, requerido en actualización, == request.time)
+//
+// Invariantes de Seguridad:
+// 1. Default Deny: Bloqueo absoluto de cualquier ruta no declarada explícitamente.
+// 2. Control de Acceso (RBAC): Únicamente administradoras autorizadas y con email verificado
+//    pueden mutar datos (crear, editar o eliminar).
+// 3. Validación de Dominio: Se aplica isValidBlogPost() tanto en create como en update
+//    para evitar el vector de Update Bypass.
+// 4. Inmutabilidad Temporal: createdAt no puede ser manipulado ni alterado en actualizaciones.
+// 5. Mitigación de Agotamiento de Recursos (DoS): Límites superiores estrictos de longitud
+//    en todas las cadenas de texto.
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Funciones Auxiliares de Autenticación y Autorización
+    // ===============================================================
+
+    // Verifica si la solicitud proviene de un usuario autenticado
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Verifica si el usuario autenticado pertenece a la lista de administradoras autorizadas
+    // y posee su correo electrónico debidamente verificado por el proveedor de identidad
+    function isPsychologistAdmin() {
+      return isAuthenticated() &&
+        request.auth.token.email_verified == true &&
+        request.auth.token.email in [
+          'carlos.mtzvelez@gmail.com',
+          'dianaledesma@gmail.com'
+        ];
+    }
+
+    // ===============================================================
+    // Validadores de Estructura y Esquema de Datos
+    // ===============================================================
+
+    // Valida que el documento contenga exclusivamente los campos permitidos por el modelo
+    function hasOnlyAllowedFields(data, fields) {
+      return data.keys().hasOnly(fields);
+    }
+
+    // Valida un campo de texto opcional respetando rangos de longitud
+    function isValidOptionalString(data, field, minLen, maxLen) {
+      return !(field in data) ||
+        (data[field] is string &&
+         data[field].size() >= minLen &&
+         data[field].size() <= maxLen);
+    }
+
+    // Validador de dominio para artículos del blog (Validator Function Pattern)
+    function isValidBlogPost(data) {
+      return hasOnlyAllowedFields(data, [
+          'title',
+          'content',
+          'category',
+          'imageUrl',
+          'author',
+          'authorId',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.title is string &&
+        data.title.size() > 5 &&
+        data.title.size() <= 200 &&
+        data.content is string &&
+        data.content.size() > 20 &&
+        data.content.size() <= 50000 &&
+        isValidOptionalString(data, 'category', 1, 50) &&
+        isValidOptionalString(data, 'imageUrl', 0, 2048) &&
+        isValidOptionalString(data, 'author', 1, 100) &&
+        isValidOptionalString(data, 'authorId', 1, 128);
+    }
+
+    // ===============================================================
+    // Regla por Defecto: Bloqueo Absoluto (Zero-Trust Baseline)
+    // ===============================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ===============================================================
+    // Colección: blog_posts (Artículos de Psicoeducación Pública)
+    // ===============================================================
+    match /blog_posts/{postId} {
+      // Lectura pública para cualquier visitante o paciente
+      allow read: if true;
+
+      // Creación: Solo administradoras verificadas con validación de esquema y timestamp
+      allow create: if isPsychologistAdmin() &&
+                    isValidBlogPost(request.resource.data) &&
+                    request.resource.data.createdAt == request.time;
+
+      // Actualización: Solo administradoras verificadas, preservando createdAt y sellando updatedAt
+      allow update: if isPsychologistAdmin() &&
+                    isValidBlogPost(request.resource.data) &&
+                    request.resource.data.createdAt == resource.data.createdAt &&
+                    request.resource.data.updatedAt == request.time;
+
+      // Eliminación: Solo administradoras verificadas
+      allow delete: if isPsychologistAdmin();
+    }
+  }
+}
