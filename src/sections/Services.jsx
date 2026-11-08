@@ -11,9 +11,9 @@
  *   el título principal sube a la cabecera superior y el carrusel de tarjetas emerge desde abajo (fade-in + slide-up).
  * - Fase 3 (progress >= 0.65): Con el fondo en crema natural y el título anclado arriba, las 4 tarjetas
  *   apaisadas adoptan su identidad cromática suave individual (Arcilla suave, Salvia orgánico, Azul niebla
- *   y Lavanda empolvada), explorables mediante desplazamiento lateral libre (swipe dos dedos en trackpad,
- *   drag-to-scroll con ratón y pastilla estilo Apple), permitiendo que al rebasar la pista de 220vh el scroll
- *   vertical continúe normalmente hacia el Blog.
+ *   y Lavanda empolvada), con formato puramente informativo, explorables mediante desplazamiento lateral libre
+ *   (swipe dos dedos en trackpad, drag-to-scroll con ratón y pastilla estilo Apple), permitiendo que al rebasar
+ *   la pista de 220vh el scroll vertical continúe normalmente hacia el Blog.
  */
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -22,14 +22,12 @@ import {
   Heart,
   Brain,
   BookOpen,
-  ArrowRight,
   ChevronLeft,
   ChevronRight,
   Clock,
   MapPin,
   ShieldCheck,
 } from 'lucide-react';
-import { scrollToSection } from '../utils/scroll.js';
 
 export const Services = () => {
   const containerRef = useRef(null);
@@ -64,7 +62,6 @@ export const Services = () => {
       duration: '50 a 60 min',
       modality: 'Online o Presencial',
       framework: 'Espacio confidencial y ético',
-      ctaText: 'Agendar en esta modalidad',
       // Identidad cromática suave: Arcilla cálida suave
       bgCard: 'bg-[#FAF5EF]',
       borderCard: 'border-[#E8DDD0]',
@@ -86,7 +83,6 @@ export const Services = () => {
       duration: '50 a 60 min',
       modality: 'Presencial y Online',
       framework: 'Enfoque colaborativo con padres',
-      ctaText: 'Agendar en esta modalidad',
       // Identidad cromática suave: Salvia orgánico suave
       bgCard: 'bg-[#F2F6F3]',
       borderCard: 'border-[#D8E3DA]',
@@ -108,7 +104,6 @@ export const Services = () => {
       duration: '50 a 60 min',
       modality: 'Online o Presencial',
       framework: 'Seguimiento de metas sesión a sesión',
-      ctaText: 'Consultar sobre este enfoque',
       // Identidad cromática suave: Azul niebla tenue
       bgCard: 'bg-[#F1F5F8]',
       borderCard: 'border-[#D3E0EA]',
@@ -124,13 +119,12 @@ export const Services = () => {
       category: 'Terapias de tercera generación',
       title: 'Terapias contextuales (ACT / DBT)',
       desc: 'Modelos contemporáneos enfocados en la flexibilidad psicológica, la aceptación compasiva del malestar inevitable y el compromiso inquebrantable con acciones coherentes con tus valores de vida.',
-      tags: ['Aceptación y compromiso (ACT)', 'Dialéctico-conductual (DBT)', 'Mindfulness clínico', 'Defusión'],
+      tags: ['Aceptación y compromiso (ACT)', 'Dialéctico-conductual (DBT)', 'Trastorno límite de la personalidad (TLP)', 'Mindfulness clínico'],
       icon: BookOpen,
       quote: 'Aprender a hacer espacio al malestar para poder caminar con ligereza hacia una vida con sentido profundo.',
       duration: '50 a 60 min',
       modality: 'Online o Presencial',
       framework: 'Recursos vivenciales prácticos',
-      ctaText: 'Consultar sobre este enfoque',
       // Identidad cromática suave: Lavanda empolvada introspectiva
       bgCard: 'bg-[#F6F2F7]',
       borderCard: 'border-[#E1D6E3]',
@@ -260,16 +254,6 @@ export const Services = () => {
   const handleMouseLeave = () => {
     isDraggingRef.current = false;
     setIsDragging(false);
-  };
-
-  // Evita disparar el clic del CTA si el usuario estaba arrastrando el carrusel
-  const handleCardCtaClick = (e, callback) => {
-    if (hasDraggedRef.current) {
-      e.preventDefault();
-      e.stopPropagation();
-      return;
-    }
-    callback();
   };
 
   // 5. Navegación por botones y dots (Apple Bottom Bar)
@@ -425,7 +409,7 @@ export const Services = () => {
           </p>
         </div>
 
-        {/* Carrusel Horizontal de Tarjetas con Identidad Cromática Suave Diferenciada */}
+        {/* Carrusel Horizontal de Tarjetas con Identidad Cromática Suave Diferenciada (Puramente Informativas) */}
         <div
           style={
             prefersReducedMotion
@@ -482,7 +466,7 @@ export const Services = () => {
                       </p>
 
                       {/* Micro-chips Temáticos con paleta tonal específica */}
-                      <div className="flex flex-wrap gap-1.5 mb-4 sm:mb-6">
+                      <div className="flex flex-wrap gap-1.5 mb-2 sm:mb-0">
                         {service.tags.map((tag, tagIdx) => (
                           <span
                             key={tagIdx}
@@ -492,23 +476,6 @@ export const Services = () => {
                           </span>
                         ))}
                       </div>
-                    </div>
-
-                    {/* Botón de Acción Contextualizado con acento cromático individual */}
-                    <div className="pt-2">
-                      <button
-                        type="button"
-                        onClick={(e) =>
-                          handleCardCtaClick(e, () => scrollToSection('contact'))
-                        }
-                        className={`inline-flex items-center gap-2 text-sm font-semibold ${service.accentColor} hover:underline transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-terracotta rounded py-1 cursor-pointer`}
-                      >
-                        <span>{service.ctaText}</span>
-                        <ArrowRight
-                          size={16}
-                          className="group-hover:translate-x-1 transition-transform"
-                        />
-                      </button>
                     </div>
                   </div>
 

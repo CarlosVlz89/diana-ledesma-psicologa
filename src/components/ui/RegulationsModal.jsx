@@ -3,12 +3,12 @@
  * Proyecto: Diana Ledesma | Psicología Clínica
  *
  * Diálogo modal accesible (WAI-ARIA) que presenta el encuadre clínico,
- * lineamientos de sesión y políticas de cancelación.
+ * lineamientos de sesión, consentimiento informado y políticas de cancelación.
  * Basado en el componente primitivo Modal.
  */
 
 import React, { useState } from 'react';
-import { Copy, Check, AlertCircle, Clock, Video, CreditCard } from 'lucide-react';
+import { Copy, Check, AlertCircle, Clock, Video, CreditCard, ShieldCheck } from 'lucide-react';
 import Modal from './Modal.jsx';
 import Button from './Button.jsx';
 import { useAuth } from '../../hooks/useAuth.js';
@@ -19,7 +19,7 @@ export const RegulationsModal = ({ isOpen, onClose, isAdmin: propIsAdmin }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    const textToCopy = `Hola, te comparto los lineamientos para nuestras sesiones de terapia:\n\n1. CANCELACIONES: Para reagendar o cancelar, es necesario avisar con al menos 24 horas de anticipación. De lo contrario, la sesión generará honorarios completos.\n\n2. PUNTUALIDAD: La sesión dura 60 minutos. Hay una tolerancia de 15 minutos; pasado este tiempo, la sesión se dará por cancelada y se cobrará.\n\n3. TERAPIA ONLINE: Es indispensable estar en un lugar privado, cerrado y sin distracciones. Por tu seguridad y la calidad del proceso, NO se realizarán sesiones si estás conduciendo, en transporte público o espacios ruidosos.\n\n4. PAGOS: El pago se realiza previo a la sesión o al finalizar la misma (Efectivo o Transferencia).\n\nGracias por tu compromiso con tu proceso.`;
+    const textToCopy = `Hola, te comparto los lineamientos de atención profesional (Lic. Diana Ledesma · Cédula Profesional: 14728021) para nuestras sesiones de terapia:\n\n1. CANCELACIONES: Para reagendar o cancelar, es necesario avisar con al menos 24 horas de anticipación. De lo contrario, la sesión generará honorarios completos.\n\n2. PUNTUALIDAD: La sesión dura 60 minutos. Hay una tolerancia de 15 minutos; pasado este tiempo, la sesión se dará por cancelada y se cobrará.\n\n3. TERAPIA ONLINE: Es indispensable estar en un lugar privado, cerrado y sin distracciones. Por tu seguridad y la calidad del proceso, NO se realizarán sesiones si estás conduciendo, en transporte público o espacios ruidosos.\n\n4. PAGOS: El pago se realiza previo a la sesión o al finalizar la misma (Efectivo o Transferencia bancaria).\n\nGracias por tu compromiso con tu proceso terapéutico.`;
 
     try {
       await navigator.clipboard.writeText(textToCopy);
@@ -61,16 +61,34 @@ export const RegulationsModal = ({ isOpen, onClose, isAdmin: propIsAdmin }) => {
       isOpen={isOpen}
       onClose={onClose}
       title="Encuadre terapéutico"
-      subtitle="Políticas de citas"
+      subtitle="Políticas de citas y consentimiento profesional"
       closeAriaLabel="Cerrar encuadre terapéutico"
       footer={modalFooter}
     >
       <div className="space-y-8">
+        {/* Encabezado Institucional y Respaldo Sanitario */}
+        <div className="bg-brand-surface/80 p-4 sm:p-5 rounded-2xl border border-brand-sage/25 flex items-start gap-3.5 shadow-soft-sm">
+          <div className="w-10 h-10 rounded-xl bg-brand-sage-light text-brand-sage-dark flex items-center justify-center shrink-0 border border-brand-sage/30">
+            <ShieldCheck size={20} />
+          </div>
+          <div>
+            <h4 className="text-base font-serif font-bold text-brand-text">
+              Lic. Diana Ledesma
+            </h4>
+            <p className="text-xs text-brand-terracotta font-semibold mt-0.5">
+              Psicóloga Clínica Colegiada · Cédula Profesional: 14728021
+            </p>
+            <p className="text-xs text-brand-muted font-sans mt-1">
+              Universidad de Guadalajara · Práctica basada en evidencia (TCC / ACT / DBT)
+            </p>
+          </div>
+        </div>
+
         {/* Alerta de introducción */}
-        <div className="bg-brand-sage/20 p-5 rounded-2xl border border-brand-sage/30 flex gap-4 items-start">
+        <div className="bg-brand-sage/15 p-5 rounded-2xl border border-brand-sage/25 flex gap-4 items-start">
           <AlertCircle className="text-brand-text shrink-0 mt-1" />
           <p className="text-sm text-brand-text font-sans font-medium">
-            Este reglamento tiene como objetivo proteger tu espacio terapéutico y asegurar la calidad de la atención profesional que mereces.
+            Este encuadre protege tu espacio psicoterapéutico, clarifica las responsabilidades mutuas y garantiza la calidad y confidencialidad que mereces.
           </p>
         </div>
 
@@ -122,7 +140,7 @@ export const RegulationsModal = ({ isOpen, onClose, isAdmin: propIsAdmin }) => {
             <CreditCard className="text-brand-accent" size={20} /> Honorarios
           </h4>
           <p className="text-brand-text font-sans leading-relaxed text-sm sm:text-base">
-            El pago se realiza preferentemente por transferencia bancaria previo a la sesión o en efectivo al finalizar la misma.
+            El pago se realiza preferentemente por transferencia bancaria previo a la sesión o en efectivo al finalizar la misma en consultorio.
           </p>
         </section>
       </div>

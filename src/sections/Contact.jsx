@@ -3,22 +3,22 @@
  * Proyecto: Diana Ledesma | Psicología Clínica
  *
  * Información de contacto directo, selector interactivo de modalidad (en línea vs. presencial),
- * enlace inteligente pre-llenado a WhatsApp y accesos a Google Calendar con ortotipografía Sentence Case.
+ * enlace inteligente pre-llenado a WhatsApp y canales oficiales con ortotipografía Sentence Case.
  */
 
 import React, { useState } from 'react';
 import {
   MapPin,
   Phone,
-  Instagram,
-  Calendar,
+  Mail,
   CheckCircle,
   ArrowRight,
   Video,
   Clock,
   ShieldCheck,
   CreditCard,
-  ExternalLink
+  ExternalLink,
+  MessageCircle,
 } from 'lucide-react';
 import Section from '../components/ui/Section.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
@@ -27,10 +27,20 @@ import Button from '../components/ui/Button.jsx';
 export const Contact = () => {
   const [modality, setModality] = useState('online'); // 'online' | 'presencial'
 
-  const whatsappMessage = encodeURIComponent(
-    'Hola Diana, me gustaría recibir información sobre tus consultas terapéuticas.'
+  const whatsappGeneralMessage = encodeURIComponent(
+    'Hola Lic. Diana, me gustaría recibir informes y agendar una sesión terapéutica.'
   );
-  const whatsappUrl = `https://wa.me/523318363829?text=${whatsappMessage}`;
+  const whatsappUrlGeneral = `https://wa.me/523318363829?text=${whatsappGeneralMessage}`;
+
+  const whatsappOnlineMessage = encodeURIComponent(
+    'Hola Lic. Diana, me gustaría recibir informes y agendar una sesión terapéutica en línea (Google Meet).'
+  );
+  const whatsappUrlOnline = `https://wa.me/523318363829?text=${whatsappOnlineMessage}`;
+
+  const whatsappPresencialMessage = encodeURIComponent(
+    'Hola Lic. Diana, me gustaría recibir informes y agendar una sesión terapéutica presencial en Guadalajara.'
+  );
+  const whatsappUrlPresencial = `https://wa.me/523318363829?text=${whatsappPresencialMessage}`;
 
   return (
     <div className="bg-gradient-to-t from-brand-sage-light/30 via-transparent to-transparent relative">
@@ -67,7 +77,7 @@ export const Contact = () => {
                         Respuesta personalizada para dudas de disponibilidad y tarifas.
                       </p>
                       <a
-                        href={whatsappUrl}
+                        href={whatsappUrlGeneral}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded"
@@ -104,26 +114,24 @@ export const Contact = () => {
                   </div>
                 </div>
 
-                {/* Instagram Psicoeducativo */}
+                {/* Correo de Contacto */}
                 <div className="glass-card-warm bg-brand-surface/90 p-5 rounded-2xl border border-brand-sage/20 shadow-soft-sm hover:shadow-soft-md transition-all group">
                   <div className="flex items-start gap-4">
                     <div className="w-11 h-11 rounded-xl bg-amber-50 text-brand-terracotta flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform border border-brand-accent/20">
-                      <Instagram size={20} />
+                      <Mail size={20} />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-bold text-brand-text text-sm mb-1">
-                        Comunidad y psicoeducación
+                        Correo de contacto
                       </h3>
                       <p className="text-xs text-brand-muted mb-2 font-sans">
-                        Publicaciones sobre salud mental, apego y autorregulación.
+                        Comunicación institucional, dudas sobre el proceso y derechos ARCO.
                       </p>
                       <a
-                        href="https://www.instagram.com/psic.dianaledesma?utm_source=qr&igsh=NTdmdjk4dDE1enJp"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="mailto:contacto@dianaledesma.com"
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-terracotta hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded"
                       >
-                        @psic.dianaledesma en Instagram <ExternalLink size={12} />
+                        contacto@dianaledesma.com <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
                       </a>
                     </div>
                   </div>
@@ -132,11 +140,11 @@ export const Contact = () => {
             </Reveal>
           </div>
 
-          {/* Columna Derecha: Tarjeta Interactiva con Selector de Modalidad (6 cols) */}
+          {/* Columna Derecha: Tarjeta Interactiva con Selector de Modalidad y Enlace Directo a WhatsApp (6 cols) */}
           <div className="lg:col-span-6">
             <Reveal delay={200}>
               <div className="glass-panel-warm bg-brand-surface/95 rounded-3xl p-6 sm:p-8 lg:p-9 shadow-soft-lg border border-brand-sage/25 relative overflow-hidden">
-                <Calendar
+                <MessageCircle
                   className="absolute -top-6 -right-6 w-44 h-44 text-brand-accent opacity-5 rotate-12 pointer-events-none"
                   aria-hidden="true"
                 />
@@ -146,7 +154,7 @@ export const Contact = () => {
                     Encuentra tu momento ideal
                   </h3>
                   <p className="text-brand-muted font-sans text-center text-xs sm:text-sm mb-6 leading-relaxed">
-                    Selecciona tu modalidad preferida para consultar la agenda oficial en tiempo real.
+                    Selecciona tu modalidad preferida para coordinar tu cita directamente vía WhatsApp.
                   </p>
 
                   {/* Selector Interactivo de Modalidad (Tabs) */}
@@ -210,7 +218,7 @@ export const Contact = () => {
                         </div>
                         <div className="flex items-center gap-2.5 text-brand-text font-medium">
                           <ShieldCheck size={15} className="text-brand-sage-dark flex-shrink-0" />
-                          <span>Enlace seguro y privado generado al confirmar tu horario.</span>
+                          <span>Enlace seguro y privado generado al confirmar tu horario por WhatsApp.</span>
                         </div>
                         <div className="flex items-center gap-2.5 text-brand-text font-medium">
                           <CreditCard size={15} className="text-brand-muted flex-shrink-0" />
@@ -219,16 +227,16 @@ export const Contact = () => {
                       </div>
 
                       <a
-                        href="https://calendar.app.google/7tm3XgfTdGsZntvN8"
+                        href={whatsappUrlOnline}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-xl"
+                        className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] rounded-xl"
                       >
                         <Button
-                          variant="primary"
-                          className="w-full flex items-center justify-center gap-2 py-3.5 shadow-soft-sm"
+                          variant="whatsapp"
+                          className="w-full flex items-center justify-center gap-2 py-3.5 shadow-soft-sm font-semibold"
                         >
-                          <Video size={18} /> Agendar sesión en línea
+                          <MessageCircle size={18} /> Agendar sesión en línea vía WhatsApp
                         </Button>
                       </a>
                     </div>
@@ -255,23 +263,23 @@ export const Contact = () => {
                       </div>
 
                       <a
-                        href="https://calendar.app.google/jSvAQqKxyrVtb7jt6"
+                        href={whatsappUrlPresencial}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-xl"
+                        className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] rounded-xl"
                       >
                         <Button
-                          variant="primary"
-                          className="w-full flex items-center justify-center gap-2 py-3.5 shadow-soft-sm"
+                          variant="whatsapp"
+                          className="w-full flex items-center justify-center gap-2 py-3.5 shadow-soft-sm font-semibold"
                         >
-                          <MapPin size={18} /> Agendar sesión presencial
+                          <MessageCircle size={18} /> Agendar sesión presencial vía WhatsApp
                         </Button>
                       </a>
                     </div>
                   )}
 
                   <p className="text-[11px] text-brand-muted/80 mt-4 text-center font-sans">
-                    Serás redirigido a la agenda oficial y cifrada en Google Calendar.
+                    Serás redirigido a WhatsApp para coordinar directamente tu fecha y horario.
                   </p>
 
                   <div className="mt-6 pt-5 border-t border-brand-sage/15 flex items-center justify-center gap-4 text-xs text-brand-muted">
@@ -282,7 +290,7 @@ export const Contact = () => {
                     <span className="w-1 h-1 rounded-full bg-brand-sage/50" />
                     <span className="flex items-center gap-1.5 font-medium">
                       <CheckCircle size={14} className="text-brand-sage-dark" />
-                      Confirmación inmediata por correo
+                      Coordinación directa y personalizada
                     </span>
                   </div>
                 </div>

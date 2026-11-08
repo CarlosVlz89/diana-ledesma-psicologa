@@ -8,26 +8,29 @@ rules_version = '2';
 // Assumed Data Model
 // ------------------
 // Collection: blog_posts
-// Document ID: Identificador único autogenerado de Firestore ({postId})
+// Document ID: {postId} (Identificador único autogenerado de Firestore)
 // Fields:
-//   - title: string (requerido, > 5 y <= 200 caracteres) - Título del artículo
-//   - content: string (requerido, > 20 y <= 50000 caracteres) - Contenido del artículo
-//   - category: string (opcional, 1-50 caracteres) - Categoría temática
-//   - imageUrl: string (opcional, 0-2048 caracteres) - URL de la imagen de portada
-//   - author: string (opcional, 1-100 caracteres) - Nombre de la autora (Diana Ledesma)
-//   - authorId: string (opcional, 1-128 caracteres) - UID del usuario autenticado
-//   - createdAt: timestamp (requerido en creación, inmutable en actualización, == request.time)
-//   - updatedAt: timestamp (opcional en creación, requerido en actualización, == request.time)
+//   - title: string (requerido, 5 a 200 caracteres) - Título del artículo
+//   - content: string (requerido, 20 a 50,000 caracteres) - Contenido del artículo
+//   - category: string (opcional, 1 a 50 caracteres) - Categoría temática
+//   - imageUrl: string (opcional, 0 a 2048 caracteres) - URL de la imagen de portada
+//   - author: string (opcional, 1 a 100 caracteres) - Nombre de la autora
+//   - authorId: string (opcional, 1 a 128 caracteres) - UID del usuario autenticado
+//   - createdAt: timestamp (requerido en creación con request.time, inmutable en actualización)
+//   - updatedAt: timestamp (opcional en creación, requerido en actualización con request.time)
 //
 // Invariantes de Seguridad:
-// 1. Default Deny: Bloqueo absoluto de cualquier ruta no declarada explícitamente.
-// 2. Control de Acceso (RBAC): Únicamente administradoras autorizadas y con email verificado
-//    pueden mutar datos (crear, editar o eliminar).
-// 3. Validación de Dominio: Se aplica isValidBlogPost() tanto en create como en update
-//    para evitar el vector de Update Bypass.
-// 4. Inmutabilidad Temporal: createdAt no puede ser manipulado ni alterado en actualizaciones.
-// 5. Mitigación de Agotamiento de Recursos (DoS): Límites superiores estrictos de longitud
-//    en todas las cadenas de texto.
+// 1. Default Deny: Bloqueo absoluto de cualquier ruta o colección no declarada explícitamente.
+// 2. Lectura Pública: Acceso de lectura irrestricto (get y list) para blog_posts, permitiendo
+//    la consulta de artículos de psicoeducación pública a pacientes y visitantes anónimos.
+// 3. Control de Acceso (RBAC Zero-Trust): Únicamente administradoras autorizadas y con email
+//    verificado por el proveedor de identidad pueden mutar datos (crear, editar o eliminar).
+// 4. Validator Function Pattern: Se aplica isValidBlogPost() obligatoriamente tanto en create
+//    como en update para erradicar el vector de ataque de Update Bypass.
+// 5. Inmutabilidad Temporal: createdAt no puede ser manipulado ni alterado en actualizaciones.
+// 6. Mitigación de Agotamiento de Recursos (DoS): Límites superiores estrictos de longitud
+//    en todas las cadenas de texto para evitar ataques de carga masiva.
+// 7. Esquema Estricto: Rechazo de cualquier campo adicional o no autorizado (hasOnly).
 // ===============================================================
 
 service cloud.firestore {
@@ -62,7 +65,12 @@ service cloud.firestore {
       return data.keys().hasOnly(fields);
     }
 
-    // Valida un campo de texto opcional respetando rangos de longitud
+    // Valida que todos los campos requeridos estén presentes en el documento
+    function hasRequiredFields(data, fields) {
+      return data.keys().hasAll(fields);
+    }
+
+    // Valida un campo de texto opcional respetando rangos de longitud mínima y máxima
     function isValidOptionalString(data, field, minLen, maxLen) {
       return !(field in data) ||
         (data[field] is string &&
@@ -70,7 +78,10 @@ service cloud.firestore {
          data[field].size() <= maxLen);
     }
 
-    // Validador de dominio para artículos del blog (Validator Function Pattern)
+    // ===============================================================
+    // Validador de Dominio (Validator Function Pattern)
+    // Evaluado obligatoriamente en operaciones create y update
+    // ===============================================================
     function isValidBlogPost(data) {
       return hasOnlyAllowedFields(data, [
           'title',
@@ -82,12 +93,15 @@ service cloud.firestore {
           'createdAt',
           'updatedAt'
         ]) &&
+        hasRequiredFields(data, ['title', 'content', 'createdAt']) &&
         data.title is string &&
-        data.title.size() > 5 &&
+        data.title.size() >= 5 &&
         data.title.size() <= 200 &&
         data.content is string &&
-        data.content.size() > 20 &&
+        data.content.size() >= 20 &&
         data.content.size() <= 50000 &&
+        data.createdAt is timestamp &&
+        (!('updatedAt' in data) || data.updatedAt is timestamp) &&
         isValidOptionalString(data, 'category', 1, 50) &&
         isValidOptionalString(data, 'imageUrl', 0, 2048) &&
         isValidOptionalString(data, 'author', 1, 100) &&
@@ -105,18 +119,20 @@ service cloud.firestore {
     // Colección: blog_posts (Artículos de Psicoeducación Pública)
     // ===============================================================
     match /blog_posts/{postId} {
-      // Lectura pública para cualquier visitante o paciente
+      // Lectura pública incondicional (get y list) para cualquier visitante anónimo o paciente
       allow read: if true;
 
-      // Creación: Solo administradoras verificadas con validación de esquema y timestamp
+      // Creación: Solo administradoras verificadas, con esquema estricto y sellado de createdAt
       allow create: if isPsychologistAdmin() &&
                     isValidBlogPost(request.resource.data) &&
-                    request.resource.data.createdAt == request.time;
+                    request.resource.data.createdAt == request.time &&
+                    (!('updatedAt' in request.resource.data) || request.resource.data.updatedAt == request.time);
 
       // Actualización: Solo administradoras verificadas, preservando createdAt y sellando updatedAt
       allow update: if isPsychologistAdmin() &&
                     isValidBlogPost(request.resource.data) &&
                     request.resource.data.createdAt == resource.data.createdAt &&
+                    ('updatedAt' in request.resource.data) &&
                     request.resource.data.updatedAt == request.time;
 
       // Eliminación: Solo administradoras verificadas

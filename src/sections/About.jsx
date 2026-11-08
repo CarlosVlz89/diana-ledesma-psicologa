@@ -4,11 +4,11 @@
  *
  * Presentación profesional, trayectoria académica, áreas de especialidad
  * categorizadas y manifiesto clínico con ortotipografía RAE y diseño visual orgánico.
- * Integra el retrato oficial diana.webp en el marco de la semblanza curricular.
+ * Integra el retrato oficial diana.webp en el marco de la semblanza curricular y cédula profesional.
  */
 
 import React from 'react';
-import { User, Award, BookOpen, Users, CheckCircle, GraduationCap } from 'lucide-react';
+import { User, BookOpen, Users, CheckCircle, GraduationCap } from 'lucide-react';
 import Section from '../components/ui/Section.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import dianaImg from '../assets/diana.webp';
@@ -41,13 +41,13 @@ export const About = () => (
                   Diana Ledesma
                 </h3>
                 <p className="text-xs text-brand-terracotta font-semibold">
-                  Psicóloga Clínica Colegiada
+                  Psicóloga Clínica Colegiada · Cédula Profesional: 14728021
                 </p>
               </div>
             </div>
 
             <p className="text-base text-brand-text/90">
-              Soy <strong>Licenciada en Psicología</strong> por la Universidad de Guadalajara, con estancia académica e intercambio clínico en la Universidad de Murcia, España.
+              Soy <strong>Licenciada en Psicología</strong> por la Universidad de Guadalajara (<strong>Cédula Profesional: 14728021</strong>), con estancia académica e intercambio clínico en la Universidad de Murcia, España.
             </p>
             <p className="text-sm text-brand-muted">
               Mi práctica integra calidez humana con rigor científico. Mantengo una formación continua avalada en psiquiatría básica, salud mental comunitaria y terapias basadas en la evidencia.
@@ -98,6 +98,7 @@ export const About = () => (
                   "Adultos en procesos de cambio y duelo",
                   "Adolescentes desde 10 años",
                   "Trastornos de la conducta alimentaria (TCA)",
+                  "Trastorno límite de la personalidad (TLP)",
                   "Intervención en crisis y prevención del suicidio"
                 ].map((item, idx) => (
                   <span
@@ -121,7 +122,7 @@ export const About = () => (
             <div className="rounded-3xl overflow-hidden aspect-[4/5] relative shadow-soft-lg border border-brand-sage/20 bg-brand-surface group">
               <img
                 src={dianaImg}
-                alt="Lic. Diana Ledesma - Psicóloga Clínica Colegiada en Guadalajara"
+                alt="Lic. Diana Ledesma - Psicóloga Clínica Colegiada en Guadalajara (Cédula Profesional: 14728021)"
                 width={600}
                 height={750}
                 loading="lazy"

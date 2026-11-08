@@ -215,9 +215,12 @@ Antes de dar por finalizada cualquier intervención de código en este repositor
 - [ ] **Accesibilidad:** ¿Todos los modales cuentan con `role="dialog"`, `aria-modal="true"` y respuesta a la tecla `Escape`?
 - [ ] **Wordmark Editorial y Favicon SVG:** ¿Se sustituyó el isotipo ilustrado por el Wordmark tipográfico en Playfair Display Italic y se configuró favicon.svg vectorial limpio?
 - [ ] **Smart Scroll y Pastilla Flotante:** ¿El Navbar implementa auto-ocultamiento direccional pasivo, transición fluida a pastilla flotante y botón primario terracota en Sentence Case ("Agendar cita")?
-- [ ] **Scrollytelling Pinned en 3 Fases de Servicios:** ¿El componente Services implementa pista fija (160vh móvil / 220vh desktop), Fase 1 de título/subtítulo centrados exclusivos, Fase 2 de transición activa y Fase 3 de carrusel lateral interactivo con controles Apple?
+- [ ] **Scrollytelling Pinned en 3 Fases de Servicios:** ¿El componente Services implementa pista fija (160vh móvil / 220vh desktop), Fase 1 de título/subtítulo centrados exclusivos, Fase 2 de transición activa y Fase 3 de carrusel lateral interactivo con tarjetas de especialidad puramente informativas (sin botones de agendar en tarjeta) y controles Apple?
+- [ ] **Áreas de Atención y TLP:** ¿Se incorporó el badge de "Trastorno límite de la personalidad" (TLP) con ortotipografía RAE estricta en Sentence Case en las secciones clínicas correspondientes?
+- [ ] **Centralización en WhatsApp y Canales Oficiales:** ¿Se eliminaron enlaces a Google Calendar e Instagram en toda la interfaz, canalizando el agendamiento exclusivamente a WhatsApp (+52 33 1836 3829) con mensajes predefinidos y conservando el correo oficial (contacto@dianaledesma.com)?
 - [ ] **Layout Editorial y Carrusel Móvil del Blog:** ¿La sección Blog implementa carrusel táctil con snap en móvil, layout asimétrico 60/40 en escritorio, badges Soft Glass accesibles y botón de admin discreto?
-- [ ] **Footer Editorial en 3 Niveles:** ¿El componente Footer implementa remate redondeado (rounded-t-[2.5rem]), distribución simétrica de 2 columnas en móvil, Cédula Profesional UdeG y micro-utilidad administrativa discreta?
+- [ ] **Footer Editorial en 3 Niveles:** ¿El componente Footer implementa remate redondeado (rounded-t-[2.5rem]), distribución simétrica de 2 columnas en móvil, Cédula Profesional: 14728021 y micro-utilidad administrativa discreta?
+- [ ] **Cédula Profesional Oficial:** ¿Se muestra visiblemente la Cédula Profesional: 14728021 en Sobre mí, Footer y en el consentimiento del encuadre terapéutico?
 - [ ] **Compilación Limpia:** ¿Se ejecutó `npm run build` confirmando que el proyecto compila a producción sin advertencias de sintaxis o fallos de empaquetado?
 
 ---

@@ -4,7 +4,7 @@
  *
  * Arquitectura editorial en 3 niveles con remate superior redondeado:
  * - Nivel 1: Cabecera institucional con logotipo WebP optimizado, credenciales sanitarias
- *   (Cédula Profesional UdeG), enfoque clínico y lema institucional.
+ *   (Cédula Profesional: 14728021), enfoque clínico y lema institucional.
  * - Nivel 2: Malla de navegación y consultorio balanceada en 2 columnas simétricas en móvil
  *   y distribución fluida en escritorio.
  * - Nivel 3: Sub-footer con copyright oficial, enlaces a modales legales (Aviso de privacidad
@@ -18,7 +18,7 @@ import {
   Loader2,
   MapPin,
   MessageCircle,
-  Instagram,
+  Mail,
   ExternalLink,
 } from 'lucide-react';
 import { scrollToSection } from '../../utils/scroll.js';
@@ -81,7 +81,7 @@ export const Footer = ({ onOpenPrivacy, onOpenRegulations }) => {
 
           <div className="text-left md:text-right text-xs text-brand-bg/75 font-sans">
             <p className="font-medium text-white/95">
-              Lic. Diana Ledesma · Cédula Profesional UdeG
+              Lic. Diana Ledesma · Cédula Profesional: 14728021
             </p>
             <p className="italic text-brand-bg/60 mt-0.5">
               "Construyendo bienestar integral."
@@ -168,13 +168,11 @@ export const Footer = ({ onOpenPrivacy, onOpenRegulations }) => {
                 </a>
 
                 <a
-                  href="https://instagram.com/psic.dianaledesma"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="mailto:contacto@dianaledesma.com"
                   className="inline-flex items-center gap-2 text-brand-bg/75 hover:text-white transition-colors py-0.5 group"
                 >
-                  <Instagram size={15} className="text-[#E4405F] shrink-0" />
-                  <span>@psic.dianaledesma</span>
+                  <Mail size={15} className="text-brand-accent shrink-0" />
+                  <span>contacto@dianaledesma.com</span>
                 </a>
 
                 <a

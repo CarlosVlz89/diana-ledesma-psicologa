@@ -243,7 +243,7 @@ export const Navbar = () => {
           {/* Accesos Directos Móviles de Contacto Rápido */}
           <div className="w-full max-w-xs space-y-3 relative z-10 pt-6 border-t border-brand-sage/20">
             <a
-              href="https://wa.me/523318363829?text=Hola%20Diana,%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20tus%20consultas%20de%20psicolog%C3%ADa."
+              href="https://wa.me/523318363829?text=Hola%20Lic.%20Diana,%20me%20gustar%C3%ADa%20recibir%20informes%20y%20agendar%20una%20sesi%C3%B3n%20terap%C3%A9utica."
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 px-4 rounded-xl text-sm font-medium shadow-soft-sm hover:shadow-soft-md transition-all active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"

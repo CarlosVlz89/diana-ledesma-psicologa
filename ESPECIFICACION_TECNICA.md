@@ -9,7 +9,7 @@
 | Campo | Detalle Técnico |
 | :--- | :--- |
 | **Identificador del Proyecto** | `diana-psicologia` (Vite SPA + Firebase Platform) |
-| **Titular y Responsable Sanitaria** | Lic. Diana Ledesma (Cédula Profesional en trámite/registro UdeG) |
+| **Titular y Responsable Sanitaria** | Lic. Diana Ledesma (Cédula Profesional: 14728021, UdeG) |
 | **Versión del Documento** | `1.0.0-PROD-SPEC` |
 | **Fecha de Aprobación** | Octubre 2026 |
 | **Estado del Documento** | **OFICIAL / ACTIVO** (Referencia vinculante de desarrollo) |
@@ -28,13 +28,14 @@ El ecosistema digital **Diana Ledesma | Psicología Clínica** provee una interf
 | Parámetro | Configuración Oficial del Sistema | Referencia de Código / Implementación |
 | :--- | :--- | :--- |
 | **Nombre Comercial** | Diana Ledesma \| Psicología Clínica | `document.title`, `Navbar.jsx`, `Footer.jsx` |
-| **Titular Sanitaria** | Lic. Diana Ledesma (Psicóloga Clínica, Univ. de Guadalajara / Univ. de Murcia) | `src/sections/About.jsx` |
-| **Enfoques Terapéuticos** | TCC (Cognitivo-Conductual), ACT, DBT, Mindfulness, TCA e Intervención en Crisis | `src/sections/Services.jsx`, `About.jsx` |
-| **Modalidad 1: Online** | Sesiones por Google Meet (60 min) con espacio privado y audífonos obligatorios | Link: `https://calendar.app.google/7tm3XgfTdGsZntvN8` |
-| **Modalidad 2: Presencial** | Consultorio físico (60 min con tolerancia máxima de 15 min) | Link: `https://calendar.app.google/jSvAQqKxyrVtb7jt6` |
+| **Titular Sanitaria** | Lic. Diana Ledesma (Psicóloga Clínica, Cédula Profesional: 14728021, Univ. de Guadalajara / Univ. de Murcia) | `src/sections/About.jsx` |
+| **Cédula Profesional** | 14728021 (Registrada oficialmente ante la Dirección General de Profesiones / SEP) | `About.jsx`, `Footer.jsx`, `RegulationsModal.jsx` |
+| **Enfoques Terapéuticos** | TCC (Cognitivo-Conductual), ACT, DBT, Mindfulness, TCA, Trastorno límite de la personalidad (TLP / DBT) e Intervención en Crisis | `src/sections/Services.jsx`, `About.jsx` |
+| **Modalidad 1: Online** | Sesiones por Google Meet (60 min), agendamiento y coordinación directa vía WhatsApp | `https://wa.me/523318363829` |
+| **Modalidad 2: Presencial** | Consultorio físico en Guadalajara (60 min con tolerancia máxima de 15 min), agendamiento vía WhatsApp | `https://wa.me/523318363829` |
 | **Ubicación Consultorio** | Calle Toltecas 3446, Col. Monraz, C.P. 44670, Guadalajara, Jalisco, México | `src/sections/Contact.jsx` (Google Maps ID: `389pHWCyAvtYHotB6`) |
-| **WhatsApp Oficial** | `+52 33 1836 3829` (Mensajería directa para confirmaciones y dudas) | `https://wa.me/523318363829` |
-| **Instagram Oficial** | `@psic.dianaledesma` (Divulgación y psicoeducación visual) | `https://www.instagram.com/psic.dianaledesma` |
+| **WhatsApp Oficial** | `+52 33 1836 3829` (Canal oficial y exclusivo de atención, informes y agendamiento de citas) | `https://wa.me/523318363829` |
+| **Correo de Contacto** | `contacto@dianaledesma.com` (Consultas institucionales y ejercicio de derechos ARCO) | `mailto:contacto@dianaledesma.com` |
 | **Políticas de Citas** | Cancelaciones con 24h de anticipación obligatorias o causan honorarios completos | `src/components/ui/RegulationsModal.jsx` |
 | **Métodos de Pago** | Transferencia bancaria anticipada o efectivo al finalizar | Cláusula 4 del Reglamento |
 
@@ -149,18 +150,18 @@ En cumplimiento con las normas de la Real Academia Española (RAE) para el idiom
   │
   ├── <main>
   │     ├── [Hero.jsx] (Encuadre clínico editorial, iluminación ambiental con orbes difuminados y CTAs de alto contraste)
-  │     ├── [About.jsx] (Retrato oficial diana.webp, credenciales académicas UdeG, perfil profesional)
-  │     ├── [Services.jsx] (Scrollytelling Pinned 220vh en 3 fases: Fase 1 centro óptico, Fase 2 transición activa, Fase 3 carrusel con 4 tarjetas de identidad cromática orgánica y controles Apple)
+  │     ├── [About.jsx] (Retrato oficial diana.webp, credenciales académicas UdeG, Cédula Profesional: 14728021, perfil profesional)
+  │     ├── [Services.jsx] (Scrollytelling Pinned 220vh en 3 fases: Fase 1 centro óptico, Fase 2 transición activa, Fase 3 carrusel con 4 tarjetas de especialidad puramente informativas y controles Apple)
   │     ├── [Blog.jsx] (Layout Editorial Asimétrico 60/40 en Desktop + Carrusel Táctil horizontal en Móvil)
   │     │     ├── [BlogCard.jsx] (Tarjeta individual accesible con badge Soft Glass y tiempo de lectura)
   │     │     ├── [BlogEditorModal.jsx] (Editor de admin desacoplado)
   │     │     └── [BlogReaderModal.jsx] (Lectura completa con tipografía fluida)
-  │     └── [Contact.jsx] (Datos de contacto, mapa y botones de Google Calendar)
+  │     └── [Contact.jsx] (Datos de contacto, consultorio en Maps y selector interactivo con agendamiento directo vía WhatsApp)
   │
-  ├── [Footer.jsx] (Pie de página editorial en 3 niveles con remate redondeado, Cédula Profesional y micro-utilidad de administración)
+  ├── [Footer.jsx] (Pie de página editorial en 3 niveles con remate redondeado, Cédula Profesional: 14728021 y micro-utilidad de administración)
   │
   ├── [PrivacyModal.jsx] (Aviso de privacidad integral y derechos ARCO)
-  └── [RegulationsModal.jsx] (Encuadre clínico y políticas de cancelación)
+  └── [RegulationsModal.jsx] (Encuadre clínico, consentimiento informado con Cédula Profesional: 14728021 y políticas de cancelación)
 ```
 
 ---
@@ -169,13 +170,13 @@ En cumplimiento con las normas de la Real Academia Española (RAE) para el idiom
 
 ### 4.1. Reducción de la Fricción Cognitiva en Agendamiento
 Un paciente que busca psicoterapia se encuentra frecuentemente en un estado emocional vulnerable (angustia, rumiación, estrés agudo o fatiga). La interfaz debe priorizar:
-1. **Predictibilidad Absoluta:**
+1. **Predictibilidad Absoluta y Coordinación Directa:**
    - La tarjeta de agenda en `src/sections/Contact.jsx` desglosa con total transparencia: duración de la sesión (60 min), modalidad (Online por Meet o Presencial en Monraz) y métodos de pago aceptados.
-   - Claridad en el enlace externo: El paciente es advertido de que será dirigido a la plataforma oficial de Google Calendar para seleccionar su fecha de forma privada.
+   - Claridad en el canal directo: La reserva y coordinación de horarios se canaliza de forma directa, ágil y confidencial a través del chat oficial de WhatsApp (+52 33 1836 3829) con un mensaje predefinido contextualizado a la modalidad solicitada, prescindiendo de intermediarios y plataformas externas.
 2. **Eliminación de Formularios Extensos:**
    - No se exige registro de cuenta, contraseñas ni llenado de cuestionarios clínicos invasivos en la web pública antes de reservar.
-3. **Canal de Auxilio Rápido:**
-   - Botón directo de WhatsApp visible en el bloque de contacto para pacientes con dudas antes de comprometerse con una cita formal.
+3. **Canal Único de Atención:**
+   - Botón directo de WhatsApp visible en los puntos de contacto para resolver dudas y agendar en una sola conversación humana y empática.
 
 ### 4.2. Encuadre Terapéutico Claro (`RegulationsModal.jsx`)
 - El encuadre (*setting*) psicoterapéutico establece los límites profesionales necesarios para la alianza terapéutica:
@@ -280,7 +281,7 @@ for (const key of requiredKeys) {
 ### 5.4. Política de Privacidad y Derechos ARCO
 En apego a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) en México:
 * La web no almacena expedientes clínicos de pacientes en Firestore; solo aloja artículos públicos de divulgación.
-* Los datos de contacto recabados en citas (Google Calendar) están protegidos bajo secreto profesional psicoterapéutico.
+* Los datos de contacto recabados al coordinar citas vía WhatsApp están protegidos bajo secreto profesional psicoterapéutico.
 * El aviso de privacidad integral accesible desde el pie de página garantiza el ejercicio de derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) a través del correo `contacto@dianaledesma.com`.
 
 ---
@@ -395,8 +396,8 @@ Esta matriz establece los criterios de aceptación formales tras la ejecución e
 | **QA-10** | **Diseño / Tipografía** | Carga de página sin conexión o en navegador limpio | Los textos cargan y aplican las fuentes oficiales `Playfair Display` e `Inter`. | 🟢 **Verificado en código** (`index.html` con Google Fonts preconnect oficial) |
 | **QA-11** | **Accesibilidad / Modales**| Presión de tecla `Escape` con modal abierto | El modal se cierra inmediatamente y devuelve el foco al botón disparador. | 🟢 **Verificado en código** (`Modal.jsx` WAI-ARIA Dialog + Focus Trap) |
 | **QA-12** | **Accesibilidad / Artículos**| Navegación por teclado (`Tab` y `Enter`) en el Blog | El usuario puede seleccionar y abrir un artículo sin depender del puntero del ratón. | 🟢 **Verificado en código** (`BlogCard.jsx` semántico con `tabIndex={0}`) |
-| **QA-13** | **Negocio / Calendario** | Clic en "Cita Online" y "Cita Presencial" en Contacto | Redirige correctamente a los dos calendarios respectivos de Google Calendar. | 🟢 **Verificado y funcional** |
-| **QA-14** | **Negocio / Contacto** | Clic en enlace de WhatsApp e Instagram | Se abre el chat directo al +52 33 1836 3829 y el perfil `@psic.dianaledesma`. | 🟢 **Verificado y funcional** |
+| **QA-13** | **Negocio / Agendamiento** | Clic en "Agendar sesión en línea vía WhatsApp" y "Agendar sesión presencial vía WhatsApp" en Contacto | Abre directamente el chat oficial de WhatsApp (+52 33 1836 3829) con el mensaje predefinido contextualizado según la modalidad elegida. | 🟢 **Verificado y funcional** |
+| **QA-14** | **Negocio / Contacto y Cédula** | Clic en enlace de WhatsApp y verificación de cédula | Se abre el chat directo al +52 33 1836 3829 y se valida la Cédula Profesional 14728021 visible en Sobre mí, Footer y Reglamento (sin enlaces huérfanos a redes sociales de terceros). | 🟢 **Verificado y funcional** |
 | **QA-15** | **Legal / Privacidad** | Clic en "Aviso de Privacidad" en el footer | Se abre el modal con texto legal completo y opciones de contacto ARCO. | 🟢 **Verificado y funcional** |
 
 ---
@@ -455,7 +456,7 @@ Esta matriz establece los criterios de aceptación formales tras la ejecución e
 1. **Auditoría Trimestral de Dependencias:** Ejecutar `npm audit` y actualizar librerías secundarias verificando compatibilidad con React 18.
 2. **Monitoreo de Cuotas de Firebase:** Monitorear en la consola de Firebase que las lecturas diarias de Firestore se mantengan en el plan gratuito (*Spark Plan*), garantizado por el uso de `getDocs` en lugar de conexiones en tiempo real permanentes.
 3. **Respaldo Periódico de Contenidos:** Realizar exportaciones periódicas de la colección `blog_posts` mediante Firebase CLI o consola de Google Cloud.
-4. **Verificación de Enlaces de Agenda:** Probar semestralmente los enlaces de Google Calendar de las modalidades presencial y virtual para evitar enlaces rotos ante cambios de calendario.
+4. **Verificación de Enlaces de Contacto:** Probar periódicamente los enlaces inteligentes y mensajes predefinidos de WhatsApp (+52 33 1836 3829) y el canal de correo para asegurar una comunicación ininterrumpida.
 
 ---
 *Fin de la Especificación Técnica Oficial para Diana Ledesma | Psicología Clínica.*
