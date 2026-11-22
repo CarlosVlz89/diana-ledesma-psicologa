@@ -158,7 +158,7 @@ En cumplimiento con las normas de la Real Academia Española (RAE) para el idiom
   ├── <main>
   │     ├── [Hero.jsx] (Encuadre clínico editorial, iluminación ambiental con orbes difuminados y CTAs de alto contraste)
   │     ├── [About.jsx] (Layout editorial 2 columnas: retrato oficial diana.webp a la izquierda orientado hacia el contenido + badge "Enfoque contextual" en esquina inferior izquierda; credenciales UdeG, Cédula Profesional: 14728021 y perfil clínico a la derecha)
-  │     ├── [Services.jsx] (Scrollytelling Pinned 220vh en 3 fases: Fase 1 centro óptico, Fase 2 transición activa, Fase 3 carrusel con 4 tarjetas de especialidad puramente informativas y controles Apple)
+  │     ├── [Services.jsx] (Flujo natural h-auto + carrusel snap-x sin overflow-y-auto en móvil < md; Scrollytelling Pinned 220vh en 3 fases con tarjetas 60/40 puramente informativas y controles Apple en escritorio md:+)
   │     ├── [Blog.jsx] (Layout Editorial Asimétrico 60/40 en Desktop + Carrusel Táctil horizontal en Móvil)
   │     │     ├── [BlogCard.jsx] (Tarjeta individual accesible con badge Soft Glass y tiempo de lectura)
   │     │     ├── [BlogEditorModal.jsx] (Editor de admin desacoplado)
@@ -361,7 +361,7 @@ diana-psicologia/
     │   └── sections/
     │       ├── Hero.jsx
     │       ├── About.jsx              # Retrato diana.webp directo sin contorno + badge Enfoque contextual
-    │       ├── Services.jsx           # Scrollytelling Pinned 220vh en 3 fases con carrusel lateral y controles Apple
+    │       ├── Services.jsx           # Flujo natural sin scroll-trapping en móvil + Scrollytelling Pinned 220vh en escritorio md:+
     │       ├── Blog.jsx               # Layout Editorial Asimétrico 60/40 y carrusel táctil móvil
     │       └── Contact.jsx            # WhatsApp directo + correo dianaledesma2110@gmail.com
     ├── utils/
@@ -406,7 +406,7 @@ Esta matriz establece los criterios de aceptación formales tras la ejecución e
 | **QA-04** | **Blog / CRUD** | Edición de un artículo publicado anteriormente | El artículo se actualiza con `updatedAt`; su fecha original `createdAt` se preserva intacta. | 🟢 **Verificado en código** (`blogService.js` omite `createdAt` en update) |
 | **QA-05** | **Blog / Error Handling** | Fallo de conexión de red durante el guardado de un post | La interfaz presenta un Toast visual de error; el formulario no se borra. | 🟢 **Verificado en código** (`Toast.jsx` + `useBlogPosts` cero fallos silenciados) |
 | **QA-06** | **Rendimiento / Assets** | Medición de identidad de cabecera, favicon y retrato profesional en carga inicial | La cabecera emplea Wordmark Editorial tipográfico (0 KB de imagen), `public/favicon.svg` pesa 399 B y `src/assets/diana.webp` pesa menos de 45 KB con `width`/`height` explícitos (CLS `0.0`), sin archivos huérfanos de logo ni marco degradado perimetral. | 🟢 **Verificado en código y build** (Wordmark Editorial + `favicon.svg` 399 B + `diana.webp` 41.29 KiB / 42.28 kB `620×1107`) |
-| **QA-07** | **Rendimiento / DOM** | Desplazamiento vertical veloz (scroll) en la One-Page | El evento de scroll se ejecuta con `{ passive: true }` y `requestAnimationFrame` sin congelar el Main Thread, implementando Smart Scroll direccional y transición fluida a pastilla flotante (`max-w-5xl rounded-full`). | 🟢 **Verificado en código** (`Navbar.jsx` Smart Scroll + Floating Pill) |
+| **QA-07** | **Rendimiento / DOM** | Desplazamiento vertical veloz (scroll) en `Navbar` y `Services` (móvil vs. escritorio) | Los listeners de scroll operan con `{ passive: true }` y `requestAnimationFrame`; `Navbar.jsx` aplica Smart Scroll y pastilla flotante (`max-w-5xl rounded-full`), y `Services.jsx` usa flujo natural `h-auto` sin `overflow-y-auto` en móvil (`< md`) y Scrollytelling Pinned `220vh` de 3 fases en escritorio (`md:+`). | 🟢 **Verificado en código** (`Navbar.jsx` + `Services.jsx` responsive sin *scroll-trapping*) |
 | **QA-08** | **Rendimiento / Hook** | Re-renderizado de sección animada con `Reveal` | El `IntersectionObserver` permanece activo sin destruirse en cada ciclo de render. | 🟢 **Verificado en código** (`useOnScreen.js` desestructuración primitiva estable) |
 | **QA-09** | **Diseño / Tailwind** | Inspección de estilos en `App.jsx`, `Navbar.jsx` y modales | Todas las clases corresponden a los 11 tokens oficiales de `tailwind.config.js` (incluyendo `brand-surface` y `brand-terracotta`); 0 referencias a `brand-cream`, `brand-dark` o `brand-terra`. | 🟢 **Verificado en código y build** (`tailwind.config.js`, `Navbar.jsx` y documentación sincronizados) |
 | **QA-10** | **Diseño / Tipografía** | Carga no bloqueante de fuentes oficiales en navegador limpio | `Playfair Display` e `Inter` cargan de forma no bloqueante (`media="print" onload="this.media='all'"` + `<noscript>`) y aplican `display=swap`. | 🟢 **Verificado en código** (`index.html` con carga no bloqueante y Google Fonts preconnect) |
@@ -429,7 +429,7 @@ Esta matriz establece los criterios de aceptación formales tras la ejecución e
   • Desplegar firestore.rules        • AuthContext y useAuth             • Corregir bug de fechas
                                                                                   │
 [FASE 4: SISTEMA DE DISEÑO]  <───── [FASE 3: RENDIMIENTO Y ASSETS] <─────────────┘
-  • Sincronizar tokens Tailwind       • Wordmark Editorial + favicon.svg + diana.webp (<60KB)
+  • Sincronizar tokens Tailwind       • Wordmark Editorial + favicon.svg + diana.webp (<45KB)
   • Activar plugin Typography        • Reparar useOnScreen observer
   • Importar Playfair e Inter        • Scroll throttle en Navbar
   • Modales accesibles WAI-ARIA      • Lazy loading con React.lazy
@@ -459,7 +459,7 @@ Esta matriz establece los criterios de aceptación formales tras la ejecución e
 - Sustituir el isotipo ilustrado por el Wordmark Editorial tipográfico (`Playfair Display` + `Inter`), eliminar assets huérfanos de logotipo y servir el retrato oficial `src/assets/diana.webp` optimizado (`<45 KB`, `41.29 KiB / 42.28 kB`, `620×1107`, `width`/`height` explícitos para CLS `0.0`).
 - Retirar el contorno y contenedor contrastante del retrato en `src/sections/About.jsx`, además del marco degradado gris-negro incrustado en la fuente original, disponiendo el layout editorial en orden natural del DOM con `diana.webp` a la izquierda (`rounded-3xl shadow-md`, orientado hacia la biografía sin voltear la imagen), el badge flotante "Enfoque contextual" anclado en la esquina inferior izquierda de la fotografía (sin colisión con el texto) y el perfil clínico a la derecha.
 - Corregir el hook `src/hooks/useOnScreen.js` memoizando las opciones del observador.
-- Aplicar `{ passive: true }` y estrangulamiento al listener de scroll en `Navbar.jsx`.
+- Aplicar `{ passive: true }` y estrangulamiento al listener de scroll en `Navbar.jsx` y `Services.jsx`, separando en `Services.jsx` el flujo natural móvil (`h-auto`, tarjetas sin `max-h-*` ni `overflow-y-auto`, cuerpo `>= 14px` y omisión de cálculo de `progress` en `< 768px`) del Scrollytelling Pinned `220vh` en escritorio (`md:+`).
 - Implementar `React.lazy` para la carga diferida de modales administrativos y legales, `manualChunks` en `vite.config.js` y carga no bloqueante de Google Fonts en `index.html`.
 - Configurar el favicon vectorial `public/favicon.svg` (`399 B`) con respaldo `favicon.ico` en `index.html`.
 
