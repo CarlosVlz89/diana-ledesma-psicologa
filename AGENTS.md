@@ -73,8 +73,8 @@ OBLIGATORIO:
 * **Obligatorio:** Toda mutación debe estar asegurada a nivel de nube por el archivo `firestore.rules`. El agente debe verificar que las reglas del servidor exijan `request.auth != null` y validen el correo en el token JWT o mediante Firebase Custom Claims.
 
 ### Regla 3.2: Gestión Estricta de Variables de Entorno (`import.meta.env`)
-* **Prohibido:** Quemar claves API, identificadores de proyecto o buckets de almacenamiento en archivos como `src/firebase.js`.
-* **Obligatorio:** Consumir todas las credenciales mediante `import.meta.env.VITE_FIREBASE_*`.
+* **Prohibido:** Quemar claves API, identificadores de proyecto, buckets de almacenamiento o correos personales en archivos fuente o en bloques de ejemplo de documentación.
+* **Obligatorio:** Consumir todas las credenciales mediante `import.meta.env.VITE_FIREBASE_*`, manteniendo `.env`, `.env.production` y `.DS_Store` estrictamente ignorados en `.gitignore` y fuera del historial de Git.
 * Toda adición de variable de entorno debe reflejarse simultáneamente en `.env.example` con valores de muestra neutrales.
 * El archivo `src/config/env.js` debe validar en tiempo de inicialización que ninguna variable crítica sea `undefined`.
 
@@ -217,7 +217,7 @@ Antes de dar por finalizada cualquier intervención de código en este repositor
 - [ ] **Anti-Truncamiento:** ¿Se verificó que ningún archivo contenga elisiones o comentarios tipo `// ... resto del código`?
 - [ ] **Aislamiento de Firebase:** ¿Están los componentes de `src/sections/` y `src/components/` 100% libres de llamadas al SDK de Firebase?
 - [ ] **Capa de Servicios y Carga Diferida:** ¿Todas las interacciones de base de datos se canalizan a través de `src/services/firebase/` usando `firebase/firestore/lite` (`getDocs` REST sin `onSnapshot` ni `Listen/channel`), con `firebase/auth` diferido dinámicamente y sin archivo legado `src/firebase.js`?
-- [ ] **Variables de Entorno y Sanitización:** ¿Se consumen las credenciales mediante `import.meta.env` sin llaves en texto plano en el código, y permanecen sanitizados `.env.example` y la documentación (con `.env` y `.env.production` ignorados en `.gitignore`)?
+- [ ] **Variables de Entorno y Sanitización:** ¿Se consumen las credenciales mediante `import.meta.env` sin llaves en texto plano en el código ni en la documentación (`ESPECIFICACION_TECNICA.md`, `AUDITORIA_ARQUITECTURA.md`, `.env.example`), y permanecen `.env`, `.env.production` y `.DS_Store` ignorados en `.gitignore` y ausentes del índice/historial de Git?
 - [ ] **Reglas de Seguridad:** ¿Existe el archivo `firestore.rules` con validación en servidor para operaciones de escritura en `blog_posts`?
 - [ ] **Preservación de Fechas:** ¿El guardado de artículos preserva `createdAt` intacto y solo muta `updatedAt` durante ediciones?
 - [ ] **Manejo de Errores:** ¿Todos los bloques `try/catch` asíncronos muestran retroalimentación visual clara y no silenciada al usuario?

@@ -255,12 +255,12 @@ useEffect(() => {
 #### A. Credenciales Hardcodeadas en Código Fuente (`src/firebase.js`)
 ```javascript
 const firebaseConfig = {
-  apiKey: "AIzaSyCKQxD283QgSB7hotsQQIXhMDgVbLgR9j0",
-  authDomain: "diana-psicologia.firebaseapp.com",
-  projectId: "diana-psicologia",
-  storageBucket: "diana-psicologia.firebasestorage.app",
-  messagingSenderId: "713339277261",
-  appId: "1:713339277261:web:d706901838cf6436243e84"
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "tu-proyecto.firebaseapp.com",
+  projectId: "tu-proyecto",
+  storageBucket: "tu-proyecto.firebasestorage.app",
+  messagingSenderId: "000000000000",
+  appId: "1:000000000000:web:0000000000000000000000"
 };
 ```
 - Aunque las llaves públicas de Firebase identifican el proyecto en Google Cloud y no otorgan permisos por sí solas, quemarlas en el código fuente:
@@ -272,8 +272,8 @@ const firebaseConfig = {
 En `src/config/constants.js`:
 ```javascript
 export const adminEmails = [
-  "carlos.mtzvelez@gmail.com", 
-  "dianaledesma@gmail.com"
+  "admin1@ejemplo.com",
+  "admin2@ejemplo.com"
 ];
 ```
 Y en `src/App.jsx`:
@@ -633,7 +633,7 @@ flowchart LR
     match /databases/{database}/documents {
       function isAdmin() {
         return request.auth != null && 
-          request.auth.token.email in ['carlos.mtzvelez@gmail.com', 'dianaledesma@gmail.com'];
+          request.auth.token.email in ['admin1@ejemplo.com', 'admin2@ejemplo.com'];
       }
       match /blog_posts/{postId} {
         allow read: if true;

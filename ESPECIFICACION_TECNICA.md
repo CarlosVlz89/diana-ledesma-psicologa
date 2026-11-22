@@ -250,8 +250,8 @@ service cloud.firestore {
 }
 ```
 
-### 5.3. Aislamiento de Variables de Entorno (`.env`)
-Las llaves del proyecto no deben figurar quemadas en código fuente. Se utiliza el estándar Vite:
+### 5.3. Aislamiento de Variables de Entorno (`.env`) y Auditoría Git
+Las llaves del proyecto no deben figurar quemadas en código fuente ni en documentación. Se utiliza el estándar Vite con `.env`, `.env.production` y `.DS_Store` ignorados en `.gitignore` (verificado en auditoría de índice e historial Git: `0` archivos `.env*` distintos de `.env.example` y `0` llaves privadas rastreadas):
 
 ```env
 # Variables Públicas de Firebase Client (Plantilla neutral; los valores reales solo residen en .env / .env.production ignorados por Git)
@@ -401,7 +401,7 @@ Esta matriz establece los criterios de aceptación formales tras la ejecución e
 | ID | Módulo / Componente | Escenario de Prueba | Resultado Esperado de Calidad | Estado de Verificación |
 | :---: | :--- | :--- | :--- | :---: |
 | **QA-01** | **Seguridad / Firestore** | Intento de borrado de post vía consola por usuario anónimo | Transacción rechazada con código `permission-denied` por `firestore.rules`. | 🟢 **Verificado en código** (`firestore.rules` Zero-Trust implementado) |
-| **QA-02** | **Seguridad / Env** | Inicialización de app sin archivo `.env` configurado | La consola emite alerta de variable faltante y detiene operaciones críticas. | 🟢 **Verificado en código** (`src/config/env.js` validador Fail-Fast) |
+| **QA-02** | **Seguridad / Env y Git** | Inicialización sin `.env` y auditoría de secretos en índice/documentación | `env.js` alerta variables faltantes; `.env` y `.env.production` permanecen ignorados en `.gitignore` (nunca rastreados en Git) y la documentación (`ESPECIFICACION_TECNICA.md`, `AUDITORIA_ARQUITECTURA.md`, `.env.example`) solo usa placeholders neutrales. | 🟢 **Verificado en código, build e historial Git** (`src/config/env.js`, `.gitignore` y documentación sanitizada) |
 | **QA-03** | **Auth / Sesión** | Recarga de página con sesión de Google activa | Se muestra indicador `authLoading` brevemente; no hay flicker en el botón de acceso. | 🟢 **Verificado en código** (`AuthContext.jsx` con `authLoading` reactivo) |
 | **QA-04** | **Blog / CRUD** | Edición de un artículo publicado anteriormente | El artículo se actualiza con `updatedAt`; su fecha original `createdAt` se preserva intacta. | 🟢 **Verificado en código** (`blogService.js` omite `createdAt` en update) |
 | **QA-05** | **Blog / Error Handling** | Fallo de conexión de red durante el guardado de un post | La interfaz presenta un Toast visual de error; el formulario no se borra. | 🟢 **Verificado en código** (`Toast.jsx` + `useBlogPosts` cero fallos silenciados) |
