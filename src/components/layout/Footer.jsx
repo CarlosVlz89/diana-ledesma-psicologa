@@ -3,7 +3,7 @@
  * Proyecto: Diana Ledesma | Psicología Clínica
  *
  * Arquitectura editorial en 3 niveles con remate superior redondeado:
- * - Nivel 1: Cabecera institucional con logotipo WebP optimizado, credenciales sanitarias
+ * - Nivel 1: Cabecera institucional con Wordmark Editorial tipográfico, credenciales sanitarias
  *   (Cédula Profesional: 14728021), enfoque clínico y lema institucional.
  * - Nivel 2: Malla de navegación y consultorio balanceada en 2 columnas simétricas en móvil
  *   y distribución fluida en escritorio.
@@ -93,7 +93,7 @@ export const Footer = ({ onOpenPrivacy, onOpenRegulations }) => {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-12 md:gap-8 my-8 sm:my-10">
           {/* Columna 1: Navegación Principal (col-span-1 en móvil, col-span-5 en desktop) */}
           <div className="col-span-1 md:col-span-5">
-            <p className="text-xs uppercase tracking-wider text-brand-accent font-semibold mb-3 font-sans">
+            <p className="text-xs uppercase tracking-wider text-brand-bg font-semibold mb-3 font-sans">
               Navegación
             </p>
             <ul className="space-y-1.5 font-sans">
@@ -147,7 +147,7 @@ export const Footer = ({ onOpenPrivacy, onOpenRegulations }) => {
 
           {/* Columna 2: Consultorio y Canales (col-span-1 en móvil, col-span-7 en desktop) */}
           <div className="col-span-1 md:col-span-7">
-            <p className="text-xs uppercase tracking-wider text-brand-accent font-semibold mb-3 font-sans">
+            <p className="text-xs uppercase tracking-wider text-brand-bg font-semibold mb-3 font-sans">
               Consultorio y canales
             </p>
             <div className="space-y-2.5 font-sans text-sm">
@@ -168,18 +168,18 @@ export const Footer = ({ onOpenPrivacy, onOpenRegulations }) => {
                 </a>
 
                 <a
-                  href="mailto:contacto@dianaledesma.com"
+                  href="mailto:dianaledesma2110@gmail.com"
                   className="inline-flex items-center gap-2 text-brand-bg/75 hover:text-white transition-colors py-0.5 group"
                 >
                   <Mail size={15} className="text-brand-accent shrink-0" />
-                  <span>contacto@dianaledesma.com</span>
+                  <span>dianaledesma2110@gmail.com</span>
                 </a>
 
                 <a
                   href="https://maps.google.com/?q=Colonia+Monraz,+Guadalajara,+Jalisco"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-brand-accent hover:text-white transition-colors pt-1 w-fit group"
+                  className="inline-flex items-center gap-1.5 text-xs text-brand-bg hover:text-white underline-offset-4 hover:underline transition-colors pt-1 w-fit group"
                 >
                   <span>Abrir en Google Maps</span>
                   <ExternalLink size={12} className="group-hover:translate-x-0.5 transition-transform" />

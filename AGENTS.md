@@ -20,7 +20,7 @@ El agente de IA actúa en este workspace con la triple investidura de:
 
 ### Principios Bioéticos Vinculantes:
 - **No Maleficencia Digital:** Ninguna interacción, formulario o copy publicitario debe generar culpa, ansiedad o urgencia artificial (*dark patterns*) en el paciente.
-- **Secreto Profesional y Privacidad:** La web jamás solicitará, procesará ni almacenará diagnósticos clínicos, expedientes médicos ni notas de sesión de pacientes. La infraestructura de base de datos solo almacena artículos de psicoeducación pública.
+- **Secreto Profesional y Privacidad:** La web jamás solicitará, procesará ni almacenará diagnósticos clínicos, expedientes médicos ni notas de sesión de pacientes. La infraestructura de base de datos solo almacena artículos de psicoeducación pública. Los canales oficiales de atención y ejercicio de derechos ARCO son WhatsApp (`+52 33 1836 3829`) y el correo `dianaledesma2110@gmail.com`.
 
 ---
 
@@ -53,9 +53,10 @@ OBLIGATORIO:
   - `src/features/blog/hooks/useBlogPosts.js` (o hooks especializados de feature).
 * Se prohíbe el *prop drilling* de estados de autenticación (`user`, `isAdmin`, `handleLogin`, `handleLogout`) a través de múltiples niveles de componentes.
 
-### Regla 2.3: Lecturas Bajo Demanda (`getDocs`) vs. Listeners en Tiempo Real
+### Regla 2.3: Lecturas Bajo Demanda (`firebase/firestore/lite` + `getDocs`) vs. Listeners en Tiempo Real
 * **Queda vetado el uso de `onSnapshot` para el catálogo del blog.**
-* Los artículos de salud mental no sufren mutaciones de alta frecuencia. Toda consulta de posts debe implementarse mediante `getDocs` con orden cronológico (`orderBy('createdAt', 'desc')`), optimizando el consumo de cuotas del plan Spark de Firebase y evitando conexiones WebSocket permanentes en clientes móviles.
+* Toda consulta y mutación de `blog_posts` debe importarse exclusivamente desde `firebase/firestore/lite` (`getDocs` con `orderBy('createdAt', 'desc')`), operando sobre peticiones HTTP REST ligeras sin abrir el canal WebChannel (`Listen/channel`) ni conexiones WebSocket permanentes en clientes móviles, optimizando cuotas del plan Spark y rendimiento en Lighthouse.
+* La inicialización de `firebase/auth` debe permanecer diferida mediante importación dinámica (`import('firebase/auth')`) en `authService.js`, activándose únicamente ante una acción explícita de inicio de sesión o un hint ligero de sesión previa en `localStorage` (nunca usado como validación de permisos).
 
 ### Regla 2.4: Integridad Temporal de Publicaciones (`createdAt` vs. `updatedAt`)
 * **Prohibido sobreescribir `createdAt` al editar un artículo:**
@@ -89,11 +90,17 @@ El agente debe ceñirse con absoluta rigurosidad a los tokens declarados en `tai
 // tailwind.config.js
 colors: {
   brand: {
-    bg: '#FAF3E0',       // Crema de Té (Fondo general) -> bg-brand-bg
-    text: '#35322F',     // Carbón Vegetal (Texto base) -> text-brand-text
-    accent: '#BC8A5F',   // Marrón Arcilla (Botones/CTA) -> bg-brand-accent, text-brand-accent
-    sage: '#828E82',     // Salvia (Detalles/Bordes)    -> text-brand-sage, bg-brand-sage
-    glass: 'rgba(250, 243, 224, 0.6)', // Vidrio líquido
+    bg: '#FAF3E0',          // Crema de Té base envolvente -> bg-brand-bg
+    surface: '#FFFDF9',     // Marfil iluminado para tarjetas y cápsula flotante -> bg-brand-surface
+    card: '#FFFFFF',        // Blanco puro de contraste para modales -> bg-brand-card
+    text: '#35322F',        // Carbón vegetal de alta legibilidad -> text-brand-text
+    muted: '#5F5C58',       // Carbón secundario accesible (7.2:1) -> text-brand-muted
+    accent: '#BC8A5F',      // Marrón arcilla decorativo -> bg-brand-accent, text-brand-accent
+    terracotta: '#854B24',  // Terracota profundo para CTAs y enlaces (6.3:1) -> bg-brand-terracotta, text-brand-terracotta
+    sage: '#828E82',        // Salvia base neutro -> text-brand-sage, bg-brand-sage
+    'sage-dark': '#4D584D', // Salvia bosque profundo para badges -> text-brand-sage-dark, bg-brand-sage-dark
+    'sage-light': '#E9ECE9',// Salvia suave para píldoras -> bg-brand-sage-light
+    glass: 'rgba(255, 253, 249, 0.78)', // Vidrio cálido translúcido -> bg-brand-glass
   }
 }
 ```
@@ -102,8 +109,8 @@ colors: {
 Queda terminantemente prohibido generar o mantener las siguientes clases inexistentes:
 * ❌ `bg-brand-cream` (Usar `bg-brand-bg`)
 * ❌ `text-brand-dark` (Usar `text-brand-text`)
-* ❌ `bg-brand-terra` o `text-brand-terra` (Usar `bg-brand-accent` o `text-brand-accent`)
-* ❌ `selection:bg-brand-terra/30` (Usar `selection:bg-brand-accent/30`)
+* ❌ `bg-brand-terra` o `text-brand-terra` (Usar `bg-brand-accent` / `text-brand-accent` para acentos decorativos, o `bg-brand-terracotta` / `text-brand-terracotta` para CTAs y enlaces principales)
+* ❌ `selection:bg-brand-terra/30` (Usar `selection:bg-brand-accent/30` o `selection:bg-brand-sage/30`)
 
 ### 4.3. Ortotipografía RAE (Sentence Case Estricto)
 * **Regla de Oro:** En español, los títulos, subtítulos, botones y etiquetas se escriben en **Sentence Case** (tipo oración).
@@ -130,14 +137,16 @@ Todo modal (`PrivacyModal`, `RegulationsModal`, `BlogEditorModal`, `BlogReaderMo
 4. Cierre mediante la tecla `Escape`.
 5. Restauración del foco al elemento que disparó la apertura tras cerrarse.
 
-### Regla 5.2: Accesibilidad en Elementos Clickeables
-* **Prohibido:** Asignar `onClick` a etiquetas `<article>`, `<div>` o `<span>` sin proveer accesibilidad por teclado (`role="button"`, `tabIndex="0"` y listener de teclas `Enter` / `Space`).
-* **Preferido:** Emplear elementos semánticos `<button>` o `<a>` con textos descriptivos claros.
+### Regla 5.2: Accesibilidad en Elementos Clickeables, Carruseles y Contraste WCAG 2.1 AA
+* **Prohibido:** Asignar `role="button"`, `tabIndex="0"` u `onClick` a etiquetas `<article>`, `<div>` o `<span>`, y prohibido anidar controles interactivos dentro de otro botón (como en `BlogCard` o tarjetas editoriales del blog).
+* **Obligatorio:** Emplear `<button type="button">` semántico para la acción principal (con área expandida `after:absolute after:inset-0` cuando aplique), manteniendo los botones secundarios (Editar/Eliminar) como hermanos en `relative z-10`.
+* **Controles de carrusel y áreas táctiles:** Los indicadores de paginación en carruseles (`Services.jsx`, `Blog.jsx`) deben usar `role="group"` (nunca `role="tablist"`) y botones con área táctil mínima de `36×36 px` (`min-w-[36px] min-h-[36px]`).
+* **Contraste mínimo WCAG 2.1 AA (`>= 4.5:1`):** Todo texto e hipervínculo en tarjetas y Footer debe garantizar ratio `>= 4.5:1` (evitando opacidades bajas como `text-brand-muted/80` sobre blanco o `text-brand-accent` sobre `bg-brand-text`).
 
 ### Regla 5.3: Rendimiento de Assets e Identidad Tipográfica
 * **Identidad de Marca:** Se adopta un Wordmark Editorial de autor ("Diana Ledesma" en Playfair Display Italic + "PSICOLOGÍA CLÍNICA" en Inter tracking abierto), prescindiendo de isotipos ilustrados de stock en cabecera y pie de página.
-* **Favicon Vectorial:** El favicon del sitio se sirve en formato vectorial SVG ligero (`public/favicon.svg`), compuesto por un monograma tipográfico "D" en Playfair Display sobre fondo crema.
-* **Rendimiento de Imágenes:** El retrato profesional (`src/assets/diana.webp`) en la sección Sobre mí debe servirse en formato WebP de alta fidelidad (<60-80 KB) con atributos explícitos `width`, `height` para optimizar la carga y asegurar CLS: 0.0.
+* **Favicon Vectorial:** El favicon del sitio se sirve en formato vectorial SVG ligero (`public/favicon.svg`, `399 B`), compuesto por un monograma tipográfico "D" en Playfair Display sobre fondo crema.
+* **Rendimiento de Imágenes:** El retrato profesional (`src/assets/diana.webp`) en la sección Sobre mí debe servirse en formato WebP de alta fidelidad (<45 KB; actualmente 41.29 KiB / 42.28 kB, `620×1107`, recortado al retrato interior sin marco degradado) integrado directamente sobre el fondo crema (`rounded-3xl shadow-md`, sin contornos ni paneles contrastantes) con atributos explícitos `width` y `height` coherentes con sus dimensiones reales para optimizar la carga y asegurar CLS: 0.0.
 * Las imágenes de tarjetas en el blog deben contar con atributos `loading="lazy"` y tamaños responsivos para evitar estrangular el ancho de banda del usuario.
 
 ### Regla 5.4: Optimización de Listeners y Observadores
@@ -205,19 +214,19 @@ Antes de dar por finalizada cualquier intervención de código en este repositor
 
 - [ ] **Anti-Truncamiento:** ¿Se verificó que ningún archivo contenga elisiones o comentarios tipo `// ... resto del código`?
 - [ ] **Aislamiento de Firebase:** ¿Están los componentes de `src/sections/` y `src/components/` 100% libres de llamadas al SDK de Firebase?
-- [ ] **Capa de Servicios:** ¿Todas las interacciones de base de datos se canalizan a través de `src/services/firebase/`?
-- [ ] **Variables de Entorno:** ¿Se consumen las credenciales mediante `import.meta.env` sin llaves en texto plano en el código?
+- [ ] **Capa de Servicios y Carga Diferida:** ¿Todas las interacciones de base de datos se canalizan a través de `src/services/firebase/` usando `firebase/firestore/lite` (`getDocs` REST sin `onSnapshot` ni `Listen/channel`), con `firebase/auth` diferido dinámicamente y sin archivo legado `src/firebase.js`?
+- [ ] **Variables de Entorno y Sanitización:** ¿Se consumen las credenciales mediante `import.meta.env` sin llaves en texto plano en el código, y permanecen sanitizados `.env.example` y la documentación (con `.env` y `.env.production` ignorados en `.gitignore`)?
 - [ ] **Reglas de Seguridad:** ¿Existe el archivo `firestore.rules` con validación en servidor para operaciones de escritura en `blog_posts`?
 - [ ] **Preservación de Fechas:** ¿El guardado de artículos preserva `createdAt` intacto y solo muta `updatedAt` durante ediciones?
 - [ ] **Manejo de Errores:** ¿Todos los bloques `try/catch` asíncronos muestran retroalimentación visual clara y no silenciada al usuario?
-- [ ] **Tokens de Diseño:** ¿Se auditaron las clases Tailwind para garantizar que no existan referencias a `brand-cream`, `brand-dark` o `brand-terra`?
+- [ ] **Tokens de Diseño:** ¿Están sincronizados los 11 tokens oficiales de `tailwind.config.js` (incluyendo `brand-surface`, `brand-terracotta` y `brand-glass`) con la documentación y `Navbar.jsx`, garantizando 0 referencias a `brand-cream`, `brand-dark` o `brand-terra`?
 - [ ] **Ortotipografía RAE:** ¿Todos los titulares y botones respetan el formato Sentence Case en idioma español?
-- [ ] **Accesibilidad:** ¿Todos los modales cuentan con `role="dialog"`, `aria-modal="true"` y respuesta a la tecla `Escape`?
-- [ ] **Wordmark Editorial y Favicon SVG:** ¿Se sustituyó el isotipo ilustrado por el Wordmark tipográfico en Playfair Display Italic y se configuró favicon.svg vectorial limpio?
+- [ ] **Accesibilidad y Contraste WCAG AA:** ¿Todos los modales cuentan con `role="dialog"`, `aria-modal="true"` y `Escape`; las tarjetas del blog usan `<button>` semántico (sin `role="button"` en `<article>` ni botones anidados); los indicadores de carrusel usan `role="group"` con área táctil `>= 36×36 px`; y los textos cumplen contraste `>= 4.5:1`?
+- [ ] **Wordmark Editorial, Favicon SVG, Fuentes y Retrato WebP:** ¿Se sustituyó el isotipo ilustrado por el Wordmark tipográfico en Playfair Display Italic, se configuró `public/favicon.svg` (`399 B`) sin archivos huérfanos de `logo.webp`/`logo.png`, Google Fonts cargan sin bloquear renderizado y se sirve `src/assets/diana.webp` (<45 KB) con `width`/`height` explícitos?
 - [ ] **Smart Scroll y Pastilla Flotante:** ¿El Navbar implementa auto-ocultamiento direccional pasivo, transición fluida a pastilla flotante y botón primario terracota en Sentence Case ("Agendar cita")?
 - [ ] **Scrollytelling Pinned en 3 Fases de Servicios:** ¿El componente Services implementa pista fija (160vh móvil / 220vh desktop), Fase 1 de título/subtítulo centrados exclusivos, Fase 2 de transición activa y Fase 3 de carrusel lateral interactivo con tarjetas de especialidad puramente informativas (sin botones de agendar en tarjeta) y controles Apple?
 - [ ] **Áreas de Atención y TLP:** ¿Se incorporó el badge de "Trastorno límite de la personalidad" (TLP) con ortotipografía RAE estricta en Sentence Case en las secciones clínicas correspondientes?
-- [ ] **Centralización en WhatsApp y Canales Oficiales:** ¿Se eliminaron enlaces a Google Calendar e Instagram en toda la interfaz, canalizando el agendamiento exclusivamente a WhatsApp (+52 33 1836 3829) con mensajes predefinidos y conservando el correo oficial (contacto@dianaledesma.com)?
+- [ ] **Centralización en WhatsApp y Canales Oficiales:** ¿Se eliminaron enlaces a Google Calendar e Instagram en toda la interfaz, canalizando el agendamiento exclusivamente a WhatsApp (+52 33 1836 3829) con mensajes predefinidos y conservando el correo oficial (`dianaledesma2110@gmail.com`)?
 - [ ] **Layout Editorial y Carrusel Móvil del Blog:** ¿La sección Blog implementa carrusel táctil con snap en móvil, layout asimétrico 60/40 en escritorio, badges Soft Glass accesibles y botón de admin discreto?
 - [ ] **Footer Editorial en 3 Niveles:** ¿El componente Footer implementa remate redondeado (rounded-t-[2.5rem]), distribución simétrica de 2 columnas en móvil, Cédula Profesional: 14728021 y micro-utilidad administrativa discreta?
 - [ ] **Cédula Profesional Oficial:** ¿Se muestra visiblemente la Cédula Profesional: 14728021 en Sobre mí, Footer y en el consentimiento del encuadre terapéutico?

@@ -238,8 +238,8 @@ export const Blog = () => {
             {/* Micro-dots de paginación sincronizados con el carrusel móvil */}
             {posts.length > 1 && (
               <div
-                className="flex items-center justify-center gap-1.5 mt-3"
-                role="tablist"
+                className="flex items-center justify-center gap-1 mt-3"
+                role="group"
                 aria-label="Indicadores del blog"
               >
                 {posts.map((post, idx) => (
@@ -249,12 +249,17 @@ export const Blog = () => {
                     onClick={() => scrollToMobileCard(idx)}
                     aria-label={`Ir al artículo ${idx + 1}: ${post.title}`}
                     aria-current={mobileIndex === idx ? 'true' : undefined}
-                    className={`transition-all duration-300 rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-terracotta ${
-                      mobileIndex === idx
-                        ? 'w-6 h-2 bg-brand-terracotta'
-                        : 'w-2 h-2 bg-brand-sage/30 hover:bg-brand-sage/50'
-                    }`}
-                  />
+                    className="min-w-[36px] min-h-[36px] flex items-center justify-center rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-terracotta group/dot"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={`transition-all duration-300 rounded-full block ${
+                        mobileIndex === idx
+                          ? 'w-6 h-2 bg-brand-terracotta'
+                          : 'w-2 h-2 bg-brand-sage/30 group-hover/dot:bg-brand-sage/50'
+                      }`}
+                    />
+                  </button>
                 ))}
               </div>
             )}
@@ -280,19 +285,7 @@ export const Blog = () => {
               <>
                 {/* Columna Izquierda: Post Destacado (col-span-7) */}
                 <div className="col-span-7 flex flex-col">
-                  <article
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => setSelectedPost(featuredPost)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setSelectedPost(featuredPost);
-                      }
-                    }}
-                    aria-label={`Leer artículo destacado: ${featuredPost.title}`}
-                    className="glass-card-warm bg-white/95 rounded-2xl border border-brand-sage/20 hover:border-brand-accent/40 shadow-soft-sm hover:shadow-soft-md transition-all duration-300 p-6 flex flex-col justify-between group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent h-full"
-                  >
+                  <article className="glass-card-warm relative bg-white/95 rounded-2xl border border-brand-sage/20 hover:border-brand-accent/40 shadow-soft-sm hover:shadow-soft-md transition-all duration-300 p-6 flex flex-col justify-between group focus-within:ring-2 focus-within:ring-brand-accent focus-within:ring-offset-2 h-full">
                     <div>
                       {/* Portada amplia 16/9 */}
                       <div className="aspect-[16/9] rounded-xl overflow-hidden relative shadow-soft-sm mb-5 bg-brand-surface">
@@ -314,14 +307,14 @@ export const Blog = () => {
                       {/* Metadatos */}
                       <div className="flex items-center justify-between text-xs text-brand-muted mb-3 font-sans">
                         <div className="flex items-center gap-2">
-                          <CalendarIcon size={13} className="text-brand-sage" />
+                          <CalendarIcon size={13} className="text-brand-sage-dark" />
                           <time>{formatBlogDate(featuredPost.createdAt)}</time>
                           <span>•</span>
                           <span>Por Diana Ledesma</span>
                         </div>
 
                         {isAdmin && (
-                          <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                          <div className="flex gap-1 relative z-10">
                             <button
                               type="button"
                               onClick={(e) => {
@@ -348,9 +341,16 @@ export const Blog = () => {
                         )}
                       </div>
 
-                      {/* Título H3 en Playfair Display */}
-                      <h3 className="font-serif text-2xl lg:text-3xl text-brand-text font-bold leading-snug group-hover:text-brand-terracotta cursor-pointer transition-colors mb-3 line-clamp-2">
-                        {featuredPost.title}
+                      {/* Título H3 en Playfair Display con botón semántico expandido */}
+                      <h3 className="font-serif text-2xl lg:text-3xl text-brand-text font-bold leading-snug group-hover:text-brand-terracotta transition-colors mb-3 line-clamp-2">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedPost(featuredPost)}
+                          aria-label={`Leer artículo destacado: ${featuredPost.title}`}
+                          className="text-left w-full focus:outline-none after:absolute after:inset-0 after:rounded-2xl cursor-pointer"
+                        >
+                          {featuredPost.title}
+                        </button>
                       </h3>
 
                       {/* Extracto amplio */}
@@ -361,7 +361,7 @@ export const Blog = () => {
 
                     {/* Enlace accesible de lectura */}
                     <div className="pt-4 border-t border-brand-sage/15 flex items-center justify-between text-sm">
-                      <span className="text-xs text-brand-muted/80 font-medium">
+                      <span className="text-xs text-brand-muted font-medium">
                         {calcReadingTime(featuredPost.content)}
                       </span>
                       <span className="text-brand-terracotta font-semibold inline-flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
@@ -378,7 +378,7 @@ export const Blog = () => {
                       <h4 className="text-xs font-bold uppercase tracking-wider text-brand-muted font-sans">
                         Artículos recientes
                       </h4>
-                      <span className="text-xs text-brand-muted/70 font-sans">
+                      <span className="text-xs text-brand-muted font-sans">
                         {recentPosts.length} {recentPosts.length === 1 ? 'publicación' : 'publicaciones'}
                       </span>
                     </div>
@@ -392,17 +392,7 @@ export const Blog = () => {
                         return (
                           <article
                             key={post.id}
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => setSelectedPost(post)}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter' || e.key === ' ') {
-                                e.preventDefault();
-                                setSelectedPost(post);
-                              }
-                            }}
-                            aria-label={`Leer artículo: ${post.title}`}
-                            className="py-3.5 first:pt-1 last:pb-1 flex gap-4 items-center group cursor-pointer hover:bg-white/80 rounded-xl px-2 -mx-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent"
+                            className="relative py-3.5 first:pt-1 last:pb-1 flex gap-4 items-center group hover:bg-white/80 rounded-xl px-2 -mx-2 transition-colors focus-within:ring-2 focus-within:ring-brand-accent"
                           >
                             {/* Miniatura cuadrada */}
                             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden flex-shrink-0 relative shadow-soft-sm bg-brand-surface">
@@ -423,7 +413,7 @@ export const Blog = () => {
                                   </span>
 
                                   {isAdmin && (
-                                    <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                                    <div className="flex gap-1 relative z-10">
                                       <button
                                         type="button"
                                         onClick={(e) => {
@@ -451,11 +441,18 @@ export const Blog = () => {
                                 </div>
 
                                 <h5 className="font-serif text-sm lg:text-base font-bold text-brand-text group-hover:text-brand-terracotta transition-colors line-clamp-2 leading-snug mb-1">
-                                  {post.title}
+                                  <button
+                                    type="button"
+                                    onClick={() => setSelectedPost(post)}
+                                    aria-label={`Leer artículo: ${post.title}`}
+                                    className="text-left w-full focus:outline-none after:absolute after:inset-0 after:rounded-xl cursor-pointer"
+                                  >
+                                    {post.title}
+                                  </button>
                                 </h5>
                               </div>
 
-                              <div className="flex items-center justify-between text-xs text-brand-muted/80 pt-1">
+                              <div className="flex items-center justify-between text-xs text-brand-muted pt-1">
                                 <time>{formatBlogDate(post.createdAt)}</time>
                                 <span className="text-brand-terracotta font-semibold inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                                   Leer <ArrowRight size={12} />

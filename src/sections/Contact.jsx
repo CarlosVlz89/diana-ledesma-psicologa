@@ -128,10 +128,10 @@ export const Contact = () => {
                         Comunicación institucional, dudas sobre el proceso y derechos ARCO.
                       </p>
                       <a
-                        href="mailto:contacto@dianaledesma.com"
+                        href="mailto:dianaledesma2110@gmail.com"
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-terracotta hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded"
                       >
-                        contacto@dianaledesma.com <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
+                        dianaledesma2110@gmail.com <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
                       </a>
                     </div>
                   </div>

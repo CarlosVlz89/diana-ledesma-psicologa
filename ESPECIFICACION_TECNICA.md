@@ -10,8 +10,8 @@
 | :--- | :--- |
 | **Identificador del Proyecto** | `diana-psicologia` (Vite SPA + Firebase Platform) |
 | **Titular y Responsable Sanitaria** | Lic. Diana Ledesma (Cédula Profesional: 14728021, UdeG) |
-| **Versión del Documento** | `1.0.0-PROD-SPEC` |
-| **Fecha de Aprobación** | Octubre 2026 |
+| **Versión del Documento** | `1.1.0-PROD-SPEC` |
+| **Fecha de Aprobación** | Octubre 2026 (Sincronizado Noviembre 2026) |
 | **Estado del Documento** | **OFICIAL / ACTIVO** (Referencia vinculante de desarrollo) |
 | **Rol Redactor / Auditor** | Principal Software Architect, Lead Security Engineer & Clinical UX Consultant |
 | **Línea Base del Código** | React 18.2.0, Vite 5.0.8, Firebase 10.7.1, Tailwind CSS 3.4.1 |
@@ -35,7 +35,7 @@ El ecosistema digital **Diana Ledesma | Psicología Clínica** provee una interf
 | **Modalidad 2: Presencial** | Consultorio físico en Guadalajara (60 min con tolerancia máxima de 15 min), agendamiento vía WhatsApp | `https://wa.me/523318363829` |
 | **Ubicación Consultorio** | Calle Toltecas 3446, Col. Monraz, C.P. 44670, Guadalajara, Jalisco, México | `src/sections/Contact.jsx` (Google Maps ID: `389pHWCyAvtYHotB6`) |
 | **WhatsApp Oficial** | `+52 33 1836 3829` (Canal oficial y exclusivo de atención, informes y agendamiento de citas) | `https://wa.me/523318363829` |
-| **Correo de Contacto** | `contacto@dianaledesma.com` (Consultas institucionales y ejercicio de derechos ARCO) | `mailto:contacto@dianaledesma.com` |
+| **Correo de Contacto** | `dianaledesma2110@gmail.com` (Consultas, agendamiento por correo y ejercicio de derechos ARCO) | `mailto:dianaledesma2110@gmail.com` |
 | **Políticas de Citas** | Cancelaciones con 24h de anticipación obligatorias o causan honorarios completos | `src/components/ui/RegulationsModal.jsx` |
 | **Métodos de Pago** | Transferencia bancaria anticipada o efectivo al finalizar | Cláusula 4 del Reglamento |
 
@@ -49,11 +49,17 @@ Para erradicar inconsistencias entre la configuración del compilador y el marca
 
 | Token Semántico | Código HEX / RGBA | Utilidad Tailwind | Rol Clínico y de Accesibilidad (WCAG 2.1 AA) |
 | :--- | :--- | :--- | :--- |
-| **`brand.bg`** | `#FAF3E0` | `bg-brand-bg` | **Fondo Crema de Té:** Reduce el deslumbramiento y fatiga ocular del paciente en crisis o ansiedad. |
-| **`brand.text`** | `#35322F` | `text-brand-text` | **Carbón Vegetal:** Contraste óptimo (11.8:1 sobre `brand.bg`). Evita el negro puro (#000000) para mayor calidez. |
-| **`brand.accent`** | `#BC8A5F` | `text-brand-accent`<br>`bg-brand-accent` | **Marrón Arcilla:** Elementos de llamada a la acción (CTA), bordes de foco, enlaces y botones principales. |
-| **`brand.sage`** | `#828E82` | `text-brand-sage`<br>`bg-brand-sage` | **Verde Salvia:** Transmite serenidad y balance. Utilizado en insignias, bordes sutiles y fondo del Footer. |
-| **`brand.glass`** | `rgba(250, 243, 224, 0.6)` | `bg-brand-glass` | **Vidrio Líquido (Liquid Glass):** Fondo con desenfoque de fondo (`backdrop-blur-md/xl`) para paneles flotantes. |
+| **`brand.bg`** | `#FAF3E0` | `bg-brand-bg` | **Crema de Té base envolvente:** Reduce el deslumbramiento y fatiga ocular del paciente en crisis o ansiedad. |
+| **`brand.surface`** | `#FFFDF9` | `bg-brand-surface` | **Marfil iluminado:** Superficie cálida elevada para tarjetas, paneles editoriales y cápsula flotante del Navbar (`bg-brand-surface/95`). |
+| **`brand.card`** | `#FFFFFF` | `bg-brand-card` | **Blanco puro de contraste:** Fondo de máxima nitidez y legibilidad para diálogos modales y formularios. |
+| **`brand.text`** | `#35322F` | `text-brand-text` | **Carbón vegetal:** Contraste óptimo (11.8:1 sobre `brand.bg`). Evita el negro puro (#000000) para mayor calidez. |
+| **`brand.muted`** | `#5F5C58` | `text-brand-muted` | **Carbón secundario accesible (7.2:1):** Jerarquía tipográfica para subtítulos, metadatos, fechas y textos de apoyo. |
+| **`brand.accent`** | `#BC8A5F` | `text-brand-accent`<br>`bg-brand-accent` | **Marrón arcilla decorativo:** Divisores, acentos visuales sutiles, detalles de bordes e iluminación ambiental. |
+| **`brand.terracotta`** | `#854B24` | `bg-brand-terracotta`<br>`text-brand-terracotta`<br>`ring-brand-terracotta` | **Terracota profundo (6.3:1 sobre blanco/marfil):** CTAs primarios (como "Agendar cita"), enlaces interactivos, indicadores activos y anillos de foco accesible. |
+| **`brand.sage`** | `#828E82` | `text-brand-sage`<br>`bg-brand-sage` | **Salvia base neutro:** Transmite serenidad y balance en bordes sutiles, separadores e iconos secundarios. |
+| **`brand.sage-dark`** | `#4D584D` | `text-brand-sage-dark`<br>`bg-brand-sage-dark` | **Salvia bosque profundo:** Alto contraste accesible para texto e iconos dentro de insignias y badges clínicos. |
+| **`brand.sage-light`** | `#E9ECE9` | `bg-brand-sage-light` | **Salvia suave:** Fondo ligero de baja estimulación para píldoras, badges de enfoques terapéuticos e indicador de sesión admin. |
+| **`brand.glass`** | `rgba(255, 253, 249, 0.78)` | `bg-brand-glass` | **Vidrio cálido translúcido:** Superficie translúcida con `backdrop-blur-md/xl` para contenedores flotantes y controles sobrepuestos. |
 
 ### 2.2. Clases Utilitarias Compuestas y Reglas CSS (`src/index.css`)
 ```css
@@ -104,7 +110,8 @@ En cumplimiento con las normas de la Real Academia Española (RAE) para el idiom
 | **Llamadas a Firebase** | Directas en el cuerpo de `App.jsx` y `Blog.jsx`. | Aisladas en `src/services/firebase/*.js`. |
 | **Gestión de Sesión** | `user` e `isAdmin` pasados por *prop drilling*. | Gestionada centralizadamente mediante `AuthContext` y `useAuth()`. |
 | **Manejo de Errores** | Silenciado en el catch o con alertas bloqueantes. | Notificaciones visuales tipo Toast accesibles y no intrusivas. |
-| **Carga de Artículos** | `onSnapshot` (WebSocket activo indefinido). | `getDocs` bajo demanda con caché en memoria y revalidación. |
+| **Carga de Artículos** | `onSnapshot` (WebSocket activo indefinido). | `firebase/firestore/lite` + `getDocs` REST bajo demanda (sin `Listen/channel`). |
+| **Inicialización de Auth** | Carga estática de `firebase/auth` en toda visita. | Carga diferida (`import('firebase/auth')`) ante login o hint de sesión previa en `localStorage`. |
 
 ### 3.2. Diagrama de Flujo en 3 Capas (Arquitectura Desacoplada)
 
@@ -128,9 +135,9 @@ En cumplimiento con las normas de la Real Academia Española (RAE) para el idiom
                                         v
 +--------------------------------------------------------------------------------+
 |                 CAPA DE INFRAESTRUCTURA Y SERVICIOS (FIREBASE / API)           |
-|  - src/services/firebase/client.js (Init con variables import.meta.env)       |
-|  - src/services/firebase/authService.js (loginWithGoogle, logout, subscribe)   |
-|  - src/services/firebase/blogService.js (fetchPosts, savePost, deletePost)     |
+|  - src/services/firebase/client.js (Firestore Lite REST + getAuthInstance lazy) |
+|  - src/services/firebase/authService.js (Import dinámico de Auth + session hint)|
+|  - src/services/firebase/blogService.js (CRUD vía firebase/firestore/lite)      |
 +---------------------------------------+----------------------------------------+
                                         | (Transmisión segura HTTPS / WSS)
                                         v
@@ -150,7 +157,7 @@ En cumplimiento con las normas de la Real Academia Española (RAE) para el idiom
   │
   ├── <main>
   │     ├── [Hero.jsx] (Encuadre clínico editorial, iluminación ambiental con orbes difuminados y CTAs de alto contraste)
-  │     ├── [About.jsx] (Retrato oficial diana.webp, credenciales académicas UdeG, Cédula Profesional: 14728021, perfil profesional)
+  │     ├── [About.jsx] (Layout editorial 2 columnas: retrato oficial diana.webp a la izquierda orientado hacia el contenido + badge "Enfoque contextual" en esquina inferior izquierda; credenciales UdeG, Cédula Profesional: 14728021 y perfil clínico a la derecha)
   │     ├── [Services.jsx] (Scrollytelling Pinned 220vh en 3 fases: Fase 1 centro óptico, Fase 2 transición activa, Fase 3 carrusel con 4 tarjetas de especialidad puramente informativas y controles Apple)
   │     ├── [Blog.jsx] (Layout Editorial Asimétrico 60/40 en Desktop + Carrusel Táctil horizontal en Móvil)
   │     │     ├── [BlogCard.jsx] (Tarjeta individual accesible con badge Soft Glass y tiempo de lectura)
@@ -205,12 +212,14 @@ service cloud.firestore {
   match /databases/{database}/documents {
     
     // Función de verificación de identidad de Administrador
+    // Nota de seguridad: los correos reales autorizados se mantienen exclusivamente
+    // en el archivo `firestore.rules` desplegado en la raíz del repositorio.
     function isPsychologistAdmin() {
       return request.auth != null && 
         request.auth.token.email_verified == true &&
         request.auth.token.email in [
-          'carlos.mtzvelez@gmail.com', 
-          'dianaledesma@gmail.com'
+          'admin1@ejemplo.com',
+          'admin2@ejemplo.com'
         ];
     }
 
@@ -245,14 +254,14 @@ service cloud.firestore {
 Las llaves del proyecto no deben figurar quemadas en código fuente. Se utiliza el estándar Vite:
 
 ```env
-# Variables Públicas de Firebase Client (Archivo .env / .env.production)
-VITE_FIREBASE_API_KEY="AIzaSyCKQxD283QgSB7hotsQQIXhMDgVbLgR9j0"
-VITE_FIREBASE_AUTH_DOMAIN="diana-psicologia.firebaseapp.com"
-VITE_FIREBASE_PROJECT_ID="diana-psicologia"
-VITE_FIREBASE_STORAGE_BUCKET="diana-psicologia.firebasestorage.app"
-VITE_FIREBASE_MESSAGING_SENDER_ID="713339277261"
-VITE_FIREBASE_APP_ID="1:713339277261:web:d706901838cf6436243e84"
-VITE_ADMIN_EMAILS="carlos.mtzvelez@gmail.com,dianaledesma@gmail.com"
+# Variables Públicas de Firebase Client (Plantilla neutral; los valores reales solo residen en .env / .env.production ignorados por Git)
+VITE_FIREBASE_API_KEY="YOUR_FIREBASE_API_KEY"
+VITE_FIREBASE_AUTH_DOMAIN="tu-proyecto.firebaseapp.com"
+VITE_FIREBASE_PROJECT_ID="tu-proyecto"
+VITE_FIREBASE_STORAGE_BUCKET="tu-proyecto.firebasestorage.app"
+VITE_FIREBASE_MESSAGING_SENDER_ID="000000000000"
+VITE_FIREBASE_APP_ID="1:000000000000:web:0000000000000000000000"
+VITE_ADMIN_EMAILS="admin1@ejemplo.com,admin2@ejemplo.com"
 ```
 
 Validador obligatorio de configuración (`src/config/env.js`):
@@ -282,7 +291,7 @@ for (const key of requiredKeys) {
 En apego a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) en México:
 * La web no almacena expedientes clínicos de pacientes en Firestore; solo aloja artículos públicos de divulgación.
 * Los datos de contacto recabados al coordinar citas vía WhatsApp están protegidos bajo secreto profesional psicoterapéutico.
-* El aviso de privacidad integral accesible desde el pie de página garantiza el ejercicio de derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) a través del correo `contacto@dianaledesma.com`.
+* El aviso de privacidad integral accesible desde el pie de página garantiza el ejercicio de derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) a través del correo `dianaledesma2110@gmail.com`.
 
 ---
 
@@ -303,9 +312,12 @@ diana-psicologia/
 ├── postcss.config.js
 ├── tailwind.config.js
 ├── vite.config.js
+├── public/
+│   ├── favicon.svg                    # Monograma vectorial "D" (399 B, Playfair Display)
+│   └── favicon.ico                    # Respaldo legado para navegadores antiguos
 └── src/
     ├── assets/
-    │   ├── diana.webp                 # Retrato oficial de Diana (<50 KB, 800x1000)
+    │   ├── diana.webp                 # Retrato oficial de Diana (<45 KB, 41.29 KiB / 42.28 kB, 620x1107)
     │   └── icons/
     ├── config/
     │   ├── env.js                     # Parser y validador de import.meta.env
@@ -330,9 +342,9 @@ diana-psicologia/
     │   └── useScrollThrottle.js       # Listener pasivo con estrangulamiento
     ├── services/
     │   └── firebase/
-    │       ├── client.js              # Inicializador único de Firebase
-    │       ├── authService.js         # Métodos de autenticación desacoplados
-    │       └── blogService.js         # Operaciones CRUD con Firestore getDocs
+    │       ├── client.js              # Inicializador único (Firestore Lite + getAuthInstance diferido)
+    │       ├── authService.js         # Métodos de autenticación diferidos con import('firebase/auth')
+    │       └── blogService.js         # Operaciones CRUD REST con firebase/firestore/lite (getDocs)
     ├── components/
     │   ├── layout/
     │   │   ├── Navbar.jsx             # Barra con Smart Scroll direccional y pastilla flotante
@@ -341,18 +353,17 @@ diana-psicologia/
     │   ├── ui/
     │   │   ├── Button.jsx             # Botón polimórfico accesible
     │   │   ├── Modal.jsx              # Diálogo WAI-ARIA reutilizable
+    │   │   ├── PrivacyModal.jsx       # Aviso de privacidad integral y derechos ARCO (dianaledesma2110@gmail.com)
+    │   │   ├── RegulationsModal.jsx   # Encuadre terapéutico y políticas de citas
     │   │   ├── Reveal.jsx             # Contenedor de animación en scroll
     │   │   ├── Section.jsx            # Envoltorio semántico <section>
     │   │   └── Toast.jsx              # Feedback de errores y confirmación
-    │   └── legal/
-    │       ├── PrivacyContent.jsx     # Contenido del aviso de privacidad
-    │       └── RegulationsContent.jsx # Contenido del encuadre terapéutico
-    ├── sections/
-    │   ├── Hero.jsx
-    │   ├── About.jsx
-    │   ├── Services.jsx           # Scrollytelling Pinned 220vh en 3 fases con carrusel lateral y controles Apple
-    │   ├── Blog.jsx               # Layout Editorial Asimétrico 60/40 y carrusel táctil móvil
-    │   └── Contact.jsx
+    │   └── sections/
+    │       ├── Hero.jsx
+    │       ├── About.jsx              # Retrato diana.webp directo sin contorno + badge Enfoque contextual
+    │       ├── Services.jsx           # Scrollytelling Pinned 220vh en 3 fases con carrusel lateral y controles Apple
+    │       ├── Blog.jsx               # Layout Editorial Asimétrico 60/40 y carrusel táctil móvil
+    │       └── Contact.jsx            # WhatsApp directo + correo dianaledesma2110@gmail.com
     ├── utils/
     │   ├── dateFormatters.js
     │   └── scroll.js
@@ -376,6 +387,11 @@ diana-psicologia/
 | **`postcss`** | `^8.4.33` | **Aprobada** | Herramienta de transformación de CSS mediante plugins. |
 | **`gh-pages`** | `^6.1.1` | **Aprobada** | Utilidad de despliegue a GitHub Pages basada en la carpeta `dist`. |
 
+#### Configuración de Targets de Compilación (`browserslist` en `package.json`)
+Para garantizar la compatibilidad de `autoprefixer` y `@vitejs/plugin-react` (Babel) con React 18 y Vite 5 —y evitar que `browserslist.findConfigFile` escale por directorios padre provocando errores `EPERM` en entornos macOS/sandboxed—, `package.json` declara explícitamente los targets oficiales:
+* **`production`:** `[">0.2%", "not dead", "not op_mini all"]`
+* **`development`:** `["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]`
+
 ---
 
 ## 7. MATRIZ DE CONTROL DE CALIDAD (QA CHECKLIST)
@@ -389,16 +405,16 @@ Esta matriz establece los criterios de aceptación formales tras la ejecución e
 | **QA-03** | **Auth / Sesión** | Recarga de página con sesión de Google activa | Se muestra indicador `authLoading` brevemente; no hay flicker en el botón de acceso. | 🟢 **Verificado en código** (`AuthContext.jsx` con `authLoading` reactivo) |
 | **QA-04** | **Blog / CRUD** | Edición de un artículo publicado anteriormente | El artículo se actualiza con `updatedAt`; su fecha original `createdAt` se preserva intacta. | 🟢 **Verificado en código** (`blogService.js` omite `createdAt` en update) |
 | **QA-05** | **Blog / Error Handling** | Fallo de conexión de red durante el guardado de un post | La interfaz presenta un Toast visual de error; el formulario no se borra. | 🟢 **Verificado en código** (`Toast.jsx` + `useBlogPosts` cero fallos silenciados) |
-| **QA-06** | **Rendimiento / Assets** | Medición de peso del logo en carga inicial de página | El archivo servido pesa menos de 40 KB (WebP) y no genera retraso de LCP. | 🟢 **Verificado en código** (`logo.webp` pesa 9.63 KB con `fetchPriority="high"`) |
+| **QA-06** | **Rendimiento / Assets** | Medición de identidad de cabecera, favicon y retrato profesional en carga inicial | La cabecera emplea Wordmark Editorial tipográfico (0 KB de imagen), `public/favicon.svg` pesa 399 B y `src/assets/diana.webp` pesa menos de 45 KB con `width`/`height` explícitos (CLS `0.0`), sin archivos huérfanos de logo ni marco degradado perimetral. | 🟢 **Verificado en código y build** (Wordmark Editorial + `favicon.svg` 399 B + `diana.webp` 41.29 KiB / 42.28 kB `620×1107`) |
 | **QA-07** | **Rendimiento / DOM** | Desplazamiento vertical veloz (scroll) en la One-Page | El evento de scroll se ejecuta con `{ passive: true }` y `requestAnimationFrame` sin congelar el Main Thread, implementando Smart Scroll direccional y transición fluida a pastilla flotante (`max-w-5xl rounded-full`). | 🟢 **Verificado en código** (`Navbar.jsx` Smart Scroll + Floating Pill) |
 | **QA-08** | **Rendimiento / Hook** | Re-renderizado de sección animada con `Reveal` | El `IntersectionObserver` permanece activo sin destruirse en cada ciclo de render. | 🟢 **Verificado en código** (`useOnScreen.js` desestructuración primitiva estable) |
-| **QA-09** | **Diseño / Tailwind** | Inspección de estilos en `App.jsx` y modales | Todas las clases corresponden a tokens válidos; no existen referencias a `brand-cream`. | 🟢 **Verificado en código** (`constants.js` y `tailwind.config.js` sincronizados) |
-| **QA-10** | **Diseño / Tipografía** | Carga de página sin conexión o en navegador limpio | Los textos cargan y aplican las fuentes oficiales `Playfair Display` e `Inter`. | 🟢 **Verificado en código** (`index.html` con Google Fonts preconnect oficial) |
+| **QA-09** | **Diseño / Tailwind** | Inspección de estilos en `App.jsx`, `Navbar.jsx` y modales | Todas las clases corresponden a los 11 tokens oficiales de `tailwind.config.js` (incluyendo `brand-surface` y `brand-terracotta`); 0 referencias a `brand-cream`, `brand-dark` o `brand-terra`. | 🟢 **Verificado en código y build** (`tailwind.config.js`, `Navbar.jsx` y documentación sincronizados) |
+| **QA-10** | **Diseño / Tipografía** | Carga no bloqueante de fuentes oficiales en navegador limpio | `Playfair Display` e `Inter` cargan de forma no bloqueante (`media="print" onload="this.media='all'"` + `<noscript>`) y aplican `display=swap`. | 🟢 **Verificado en código** (`index.html` con carga no bloqueante y Google Fonts preconnect) |
 | **QA-11** | **Accesibilidad / Modales**| Presión de tecla `Escape` con modal abierto | El modal se cierra inmediatamente y devuelve el foco al botón disparador. | 🟢 **Verificado en código** (`Modal.jsx` WAI-ARIA Dialog + Focus Trap) |
-| **QA-12** | **Accesibilidad / Artículos**| Navegación por teclado (`Tab` y `Enter`) en el Blog | El usuario puede seleccionar y abrir un artículo sin depender del puntero del ratón. | 🟢 **Verificado en código** (`BlogCard.jsx` semántico con `tabIndex={0}`) |
+| **QA-12** | **Accesibilidad / Artículos**| Navegación por teclado (`Tab` y `Enter`), WAI-ARIA y área táctil en Blog y Carruseles | Las tarjetas usan `<button>` semántico expandido (sin `role="button"` en `<article>` ni botones anidados), los indicadores usan `role="group"` con área táctil `>= 36×36 px` y todo texto cumple contraste WCAG 2.1 AA (`>= 4.5:1`). | 🟢 **Verificado en código** (`BlogCard.jsx`, `Blog.jsx`, `Services.jsx`, `Footer.jsx`) |
 | **QA-13** | **Negocio / Agendamiento** | Clic en "Agendar sesión en línea vía WhatsApp" y "Agendar sesión presencial vía WhatsApp" en Contacto | Abre directamente el chat oficial de WhatsApp (+52 33 1836 3829) con el mensaje predefinido contextualizado según la modalidad elegida. | 🟢 **Verificado y funcional** |
-| **QA-14** | **Negocio / Contacto y Cédula** | Clic en enlace de WhatsApp y verificación de cédula | Se abre el chat directo al +52 33 1836 3829 y se valida la Cédula Profesional 14728021 visible en Sobre mí, Footer y Reglamento (sin enlaces huérfanos a redes sociales de terceros). | 🟢 **Verificado y funcional** |
-| **QA-15** | **Legal / Privacidad** | Clic en "Aviso de Privacidad" en el footer | Se abre el modal con texto legal completo y opciones de contacto ARCO. | 🟢 **Verificado y funcional** |
+| **QA-14** | **Negocio / Contacto y Cédula** | Clic en enlaces de WhatsApp, correo oficial y verificación de cédula | Se abre el chat directo al +52 33 1836 3829 o `mailto:dianaledesma2110@gmail.com` en Contacto y Footer, y se valida la Cédula Profesional 14728021 visible en Sobre mí, Footer y Reglamento (sin enlaces huérfanos a redes sociales de terceros). | 🟢 **Verificado y funcional** |
+| **QA-15** | **Legal / Privacidad** | Clic en "Aviso de Privacidad" en el footer | Se abre el modal con texto legal completo y enlace de contacto ARCO hacia `dianaledesma2110@gmail.com`. | 🟢 **Verificado y funcional** |
 
 ---
 
@@ -413,7 +429,7 @@ Esta matriz establece los criterios de aceptación formales tras la ejecución e
   • Desplegar firestore.rules        • AuthContext y useAuth             • Corregir bug de fechas
                                                                                   │
 [FASE 4: SISTEMA DE DISEÑO]  <───── [FASE 3: RENDIMIENTO Y ASSETS] <─────────────┘
-  • Sincronizar tokens Tailwind       • Reducir logo de 2.33MB a <40KB
+  • Sincronizar tokens Tailwind       • Wordmark Editorial + favicon.svg + diana.webp (<60KB)
   • Activar plugin Typography        • Reparar useOnScreen observer
   • Importar Playfair e Inter        • Scroll throttle en Navbar
   • Modales accesibles WAI-ARIA      • Lazy loading con React.lazy
@@ -426,8 +442,9 @@ Esta matriz establece los criterios de aceptación formales tras la ejecución e
 - Agregar `.DS_Store` y `.env` a `.gitignore`.
 
 #### Fase 1: Abstracción de Firebase y Capa de Servicios
-- Crear `src/services/firebase/client.js`, `authService.js` y `blogService.js`.
-- Migrar consultas de Firestore de `onSnapshot` a `getDocs` bajo demanda.
+- Crear `src/services/firebase/client.js`, `authService.js` y `blogService.js` (eliminando el puente legado `src/firebase.js`).
+- Migrar consultas y mutaciones de Firestore a `firebase/firestore/lite` (`getDocs` REST bajo demanda, sin `onSnapshot` ni canal persistente `Listen/channel`).
+- Diferir dinámicamente `firebase/auth` mediante `import('firebase/auth')` en `authService.js` con hint no privilegiado en `localStorage` para evitar descargas de `auth/iframe.js` y llamadas `getProjectConfig` en visitas públicas anónimas.
 - Crear `src/context/AuthContext.jsx` y `src/hooks/useAuth.js` con soporte para `authLoading`.
 
 #### Fase 2: Desacoplamiento del Módulo de Blog y Erradicación de Prop Drilling
@@ -439,18 +456,19 @@ Esta matriz establece los criterios de aceptación formales tras la ejecución e
 - Implementar notificaciones visuales tipo Toast para operaciones exitosas o fallidas.
 
 #### Fase 3: Optimización de Rendimiento, Assets y Carga
-- Convertir `logo.png` (2.33 MB) a WebP optimizado (<40 KB).
+- Sustituir el isotipo ilustrado por el Wordmark Editorial tipográfico (`Playfair Display` + `Inter`), eliminar assets huérfanos de logotipo y servir el retrato oficial `src/assets/diana.webp` optimizado (`<45 KB`, `41.29 KiB / 42.28 kB`, `620×1107`, `width`/`height` explícitos para CLS `0.0`).
+- Retirar el contorno y contenedor contrastante del retrato en `src/sections/About.jsx`, además del marco degradado gris-negro incrustado en la fuente original, disponiendo el layout editorial en orden natural del DOM con `diana.webp` a la izquierda (`rounded-3xl shadow-md`, orientado hacia la biografía sin voltear la imagen), el badge flotante "Enfoque contextual" anclado en la esquina inferior izquierda de la fotografía (sin colisión con el texto) y el perfil clínico a la derecha.
 - Corregir el hook `src/hooks/useOnScreen.js` memoizando las opciones del observador.
 - Aplicar `{ passive: true }` y estrangulamiento al listener de scroll en `Navbar.jsx`.
-- Implementar `React.lazy` para la carga diferida de modales administrativos y legales.
-- Corregir la ruta del favicon en `index.html`.
+- Implementar `React.lazy` para la carga diferida de modales administrativos y legales, `manualChunks` en `vite.config.js` y carga no bloqueante de Google Fonts en `index.html`.
+- Configurar el favicon vectorial `public/favicon.svg` (`399 B`) con respaldo `favicon.ico` en `index.html`.
 
 #### Fase 4: Consolidación del Sistema de Diseño y Accesibilidad
 - Limpiar `src/config/constants.js` y sincronizar los tokens de `tailwind.config.js`.
 - Activar el plugin `@tailwindcss/typography` en `tailwind.config.js`.
 - Importar las fuentes oficiales `Playfair Display` e `Inter` en `index.html`.
 - Desarrollar un componente accesible `src/components/ui/Modal.jsx` con WAI-ARIA y Focus Trap.
-- Reemplazar el contenedor interactivo `<article>` por elementos navegables por teclado.
+- Reemplazar contenedores `<article role="button">` por `<button>` semánticos expandidos (sin botones anidados), migrar indicadores de carrusel a `role="group"` con áreas táctiles `>= 36×36 px` y asegurar contraste WCAG 2.1 AA (`>= 4.5:1`) en tarjetas y Footer.
 
 ### 8.2. Protocolo de Mantenimiento y Buenas Prácticas Post-Lanzamiento
 1. **Auditoría Trimestral de Dependencias:** Ejecutar `npm audit` y actualizar librerías secundarias verificando compatibilidad con React 18.

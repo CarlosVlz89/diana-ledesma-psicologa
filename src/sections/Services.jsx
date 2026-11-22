@@ -549,8 +549,8 @@ export const Services = () => {
 
             {/* Micro-píldoras de paginación */}
             <div
-              className="flex items-center gap-2"
-              role="tablist"
+              className="flex items-center gap-0.5"
+              role="group"
               aria-label="Indicadores de servicios"
             >
               {services.map((service, idx) => (
@@ -560,12 +560,17 @@ export const Services = () => {
                   onClick={() => scrollToCard(idx)}
                   aria-label={`Ir al servicio ${idx + 1}: ${service.title}`}
                   aria-current={activeIndex === idx ? 'true' : undefined}
-                  className={`transition-all duration-300 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-terracotta cursor-pointer ${
-                    activeIndex === idx
-                      ? 'w-7 h-2.5 bg-brand-terracotta'
-                      : 'w-2.5 h-2.5 bg-brand-sage/30 hover:bg-brand-sage/50'
-                  }`}
-                />
+                  className="min-w-[36px] min-h-[36px] flex items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-terracotta cursor-pointer group/dot"
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`transition-all duration-300 rounded-full block ${
+                      activeIndex === idx
+                        ? 'w-7 h-2.5 bg-brand-terracotta'
+                        : 'w-2.5 h-2.5 bg-brand-sage/30 group-hover/dot:bg-brand-sage/50'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 

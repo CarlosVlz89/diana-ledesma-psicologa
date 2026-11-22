@@ -4,7 +4,8 @@
  *
  * Presentación profesional, trayectoria académica, áreas de especialidad
  * categorizadas y manifiesto clínico con ortotipografía RAE y diseño visual orgánico.
- * Integra el retrato oficial diana.webp en el marco de la semblanza curricular y cédula profesional.
+ * Layout editorial en 2 columnas (orden natural del DOM): retrato oficial diana.webp
+ * a la izquierda orientado hacia el perfil curricular y cédula profesional a la derecha.
  */
 
 import React from 'react';
@@ -27,10 +28,39 @@ export const About = () => (
       </div>
     </Reveal>
 
-    <div className="grid md:grid-cols-12 gap-10 lg:gap-12 items-center">
-      {/* Columna Izquierda: Información Profesional y Especialidades (7 cols) */}
-      <div className="order-2 md:order-1 md:col-span-7 space-y-6">
+    <div className="grid md:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
+      {/* Primera Columna (Izquierda en escritorio / Arriba en móvil): Retrato Oficial Auténtico y Credenciales Flotantes (5 cols) */}
+      <div className="md:col-span-5 flex justify-center">
         <Reveal delay={200}>
+          <div className="relative w-full max-w-xs sm:max-w-sm mx-auto mt-2 md:mt-0">
+            <img
+              src={dianaImg}
+              alt="Lic. Diana Ledesma - Psicóloga Clínica Colegiada en Guadalajara (Cédula Profesional: 14728021)"
+              width={620}
+              height={1107}
+              loading="lazy"
+              className="w-full h-auto block object-cover rounded-3xl shadow-md"
+            />
+
+            {/* Tarjeta Flotante con acabado Glass Cálido anclada en la esquina inferior izquierda */}
+            <div className="bg-white/90 backdrop-blur-md absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-[260px] p-4 sm:p-5 rounded-2xl shadow-soft-md border border-white/80">
+              <div className="flex items-center gap-2.5 mb-1.5">
+                <div className="p-2 bg-brand-sage-light text-brand-sage-dark rounded-xl shrink-0">
+                  <CheckCircle size={18} />
+                </div>
+                <span className="font-bold text-xs text-brand-text">Enfoque contextual</span>
+              </div>
+              <p className="text-xs text-brand-muted font-sans leading-relaxed">
+                Herramientas terapéuticas prácticas diseñadas para tu realidad cotidiana.
+              </p>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+
+      {/* Segunda Columna (Derecha en escritorio / Debajo en móvil): Información Profesional y Especialidades (7 cols) */}
+      <div className="md:col-span-7 space-y-6">
+        <Reveal delay={300}>
           <div className="space-y-4 max-w-prose text-brand-text/90 font-sans leading-relaxed">
             <div className="flex items-center gap-2.5 mb-2">
               <div className="w-9 h-9 rounded-xl bg-brand-sage-light text-brand-sage-dark flex items-center justify-center">
@@ -110,41 +140,6 @@ export const About = () => (
                   </span>
                 ))}
               </div>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-
-      {/* Columna Derecha: Retrato Oficial Auténtico y Credenciales Flotantes (5 cols) */}
-      <div className="order-1 md:order-2 md:col-span-5 flex justify-center">
-        <Reveal delay={300}>
-          <div className="relative mt-4 md:mt-0 max-w-xs sm:max-w-sm">
-            <div className="rounded-3xl overflow-hidden aspect-[4/5] relative shadow-soft-lg border border-brand-sage/20 bg-brand-surface group">
-              <img
-                src={dianaImg}
-                alt="Lic. Diana Ledesma - Psicóloga Clínica Colegiada en Guadalajara (Cédula Profesional: 14728021)"
-                width={600}
-                height={750}
-                loading="lazy"
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-              />
-              <div
-                className="absolute inset-0 bg-brand-accent/5 mix-blend-multiply pointer-events-none"
-                aria-hidden="true"
-              />
-            </div>
-
-            {/* Tarjeta Flotante con acabado Glass Cálido */}
-            <div className="bg-white/90 backdrop-blur-md absolute -bottom-6 -right-3 md:-right-6 p-4 sm:p-5 max-w-[260px] rounded-2xl shadow-soft-md border border-white/80">
-              <div className="flex items-center gap-2.5 mb-1.5">
-                <div className="p-2 bg-brand-sage-light text-brand-sage-dark rounded-xl shrink-0">
-                  <CheckCircle size={18} />
-                </div>
-                <span className="font-bold text-xs text-brand-text">Enfoque contextual</span>
-              </div>
-              <p className="text-xs text-brand-muted font-sans leading-relaxed">
-                Herramientas terapéuticas prácticas diseñadas para tu realidad cotidiana.
-              </p>
             </div>
           </div>
         </Reveal>

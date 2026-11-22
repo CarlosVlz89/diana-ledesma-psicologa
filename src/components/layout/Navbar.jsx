@@ -13,7 +13,7 @@
  * - Estado desplazado (isScrolled): Cápsula centrada con cristal cálido (bg-brand-surface/95, backdrop-blur-md).
  * - Scroll direccional: Oculta hacia arriba en descenso (-translate-y-28 opacity-0) y reaparece en ascenso (translate-y-0 opacity-100).
  * - Excepción de menú móvil: Permanece forzosamente visible mientras isMenuOpen sea true.
- * - Botón primario de "Agendar cita": Terracota sólido ineludible (bg-[#854B24] text-white),
+ * - Botón primario de "Agendar cita": Terracota sólido ineludible (bg-brand-terracotta text-white),
  *   geometría redondeada (rounded-full) y ortotipografía estricta en Sentence Case.
  * - Accesibilidad: WAI-ARIA dialog para menú móvil, cierre con tecla Escape y bloqueo de scroll de fondo.
  */
@@ -158,10 +158,10 @@ export const Navbar = () => {
                   key={link.id}
                   type="button"
                   onClick={() => handleNavClick(link.id)}
-                  className="relative text-sm font-medium text-brand-text hover:text-brand-terracotta transition-colors group py-1 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#854B24] rounded cursor-pointer"
+                  className="relative text-sm font-medium text-brand-text hover:text-brand-terracotta transition-colors group py-1 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-terracotta rounded cursor-pointer"
                 >
                   {link.name}
-                  <span className="absolute -bottom-0.5 left-1/2 w-0 h-0.5 transition-all duration-300 group-hover:w-full group-hover:left-0 bg-[#854B24]" />
+                  <span className="absolute -bottom-0.5 left-1/2 w-0 h-0.5 transition-all duration-300 group-hover:w-full group-hover:left-0 bg-brand-terracotta" />
                 </button>
               ))}
 
@@ -176,7 +176,7 @@ export const Navbar = () => {
                 type="button"
                 onClick={() => handleNavClick('contact')}
                 aria-label="Agendar cita psicoterapéutica"
-                className="inline-flex items-center gap-2 bg-[#854B24] text-white hover:bg-[#6e3d1d] px-5 py-2 rounded-full font-medium text-sm shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#854B24] focus-visible:ring-offset-2 whitespace-nowrap active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2 bg-brand-terracotta text-white hover:bg-[#6e3d1d] px-5 py-2 rounded-full font-medium text-sm shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-terracotta focus-visible:ring-offset-2 whitespace-nowrap active:scale-95 cursor-pointer"
               >
                 <Calendar size={14} className="shrink-0" />
                 <span>Agendar cita</span>
@@ -190,7 +190,7 @@ export const Navbar = () => {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label={isMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
                 aria-expanded={isMenuOpen}
-                className="p-2 rounded-xl transition-colors text-brand-text hover:bg-brand-sage/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#854B24] cursor-pointer"
+                className="p-2 rounded-xl transition-colors text-brand-text hover:bg-brand-sage/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-terracotta cursor-pointer"
               >
                 {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
@@ -253,7 +253,7 @@ export const Navbar = () => {
             <button
               type="button"
               onClick={() => handleNavClick('contact')}
-              className="w-full flex items-center justify-center gap-2 bg-[#854B24] text-white hover:bg-[#6e3d1d] py-3 px-4 rounded-xl text-sm font-medium shadow-md hover:shadow-lg transition-all active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#854B24] focus-visible:ring-offset-2 cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 bg-brand-terracotta text-white hover:bg-[#6e3d1d] py-3 px-4 rounded-xl text-sm font-medium shadow-md hover:shadow-lg transition-all active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-terracotta focus-visible:ring-offset-2 cursor-pointer"
             >
               <Calendar size={16} /> Agendar cita
             </button>

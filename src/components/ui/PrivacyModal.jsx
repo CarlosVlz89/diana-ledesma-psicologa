@@ -50,10 +50,10 @@ export const PrivacyModal = ({ isOpen, onClose }) => {
         <p>
           Para conocer mayor información sobre los términos y condiciones en que serán tratados sus datos personales, y la forma en que podrá ejercer sus derechos ARCO (Acceso, Rectificación, Cancelación y Oposición), puede solicitar el aviso de privacidad integral enviando un correo a{' '}
           <a
-            href="mailto:contacto@dianaledesma.com"
+            href="mailto:dianaledesma2110@gmail.com"
             className="text-brand-accent underline hover:text-brand-text transition-colors"
           >
-            contacto@dianaledesma.com
+            dianaledesma2110@gmail.com
           </a>
           .
         </p>

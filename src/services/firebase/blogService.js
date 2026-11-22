@@ -18,7 +18,7 @@ import {
   query,
   orderBy,
   serverTimestamp,
-} from 'firebase/firestore';
+} from 'firebase/firestore/lite';
 import { db } from './client.js';
 
 const BLOG_COLLECTION = 'blog_posts';
